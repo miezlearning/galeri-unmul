@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeri Foto Mahasiswa Unmul</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Animasi spinner */
+        .loader {
+            border-top-color: #3b82f6; /* blue-500 */
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        /* Mencegah input number memiliki panah */
+        input[type='number']::-webkit-inner-spin-button,
+        input[type='number']::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type='number'] {
+            -moz-appearance: textfield;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9; /* slate-100 */
+        }
+        .dark ::-webkit-scrollbar-track {
+            background: #1e293b; /* slate-800 */
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #94a3b8; /* slate-400 */
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #64748b; /* slate-500 */
+        }
+        /* Styling untuk modal */
+        #image-modal.hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-200 transition-colors duration-300">
+
+    <!-- Header -->
+    <header class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm sticky top-0 z-20 shadow-sm">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <h1 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">Galeri Foto Mahasiswa</h1>
+                <button id="theme-toggle" class="p-2 rounded-full text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+                    <!-- Ikon akan diisi oleh JS -->
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-4 sm:p-6 lg:p-8">
+        
+        <!-- Panel Kontrol -->
+        <div class="bg-white dark:bg-slate-800 p-5 rounded-xl shadow-md mb-8">
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-4 items-end">
+                <!-- Input Angkatan, Fakultas, Prodi -->
+                <div>
+                    <label for="angkatan" class="block text-sm font-medium mb-1.5">Angkatan</label>
+                    <input type="number" id="angkatan" value="23" class="w-full bg-slate-100 dark:bg-slate-700 border-transparent focus:ring-2 focus:ring-blue-500 focus:border-transparent rounded-lg p-2.5 text-center font-mono transition" placeholder="23">
+                </div>
+                <div>
+                    <label for="fakultas" class="block text-sm font-medium mb-1.5">Fakultas</label>
+                    <input type="number" id="fakultas" value="09" class="w-full bg-slate-100 dark:bg-slate-700 border-transparent focus:ring-2 focus:ring-blue-500 focus:border-transparent rounded-lg p-2.5 text-center font-mono transition" placeholder="09">
+                </div>
+                <div>
+                    <label for="prodi" class="block text-sm font-medium mb-1.5">Prodi</label>
+                    <input type="number" id="prodi" value="106" class="w-full bg-slate-100 dark:bg-slate-700 border-transparent focus:ring-2 focus:ring-blue-500 focus:border-transparent rounded-lg p-2.5 text-center font-mono transition" placeholder="106">
+                </div>
+                <!-- Input Nomor Awal & Jumlah -->
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                       <label for="nim-start" class="block text-sm font-medium mb-1.5">NIM Awal</label>
+                       <input type="number" id="nim-start" value="1" class="w-full bg-slate-100 dark:bg-slate-700 border-transparent focus:ring-2 focus:ring-blue-500 focus:border-transparent rounded-lg p-2.5 text-center font-mono transition" placeholder="1">
+                    </div>
+                    <div>
+                       <label for="nim-count" class="block text-sm font-medium mb-1.5">Jumlah</label>
+                       <input type="number" id="nim-count" value="18" class="w-full bg-slate-100 dark:bg-slate-700 border-transparent focus:ring-2 focus:ring-blue-500 focus:border-transparent rounded-lg p-2.5 text-center font-mono transition" placeholder="18">
+                    </div>
+                </div>
+                <!-- Tombol Tampilkan -->
+                <button id="generate-btn" class="col-span-2 sm:col-span-1 md:col-span-1 lg:col-span-1 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-4 rounded-lg transition h-full flex items-center justify-center transform hover:scale-105">
+                    Tampilkan
+                </button>
+                 <!-- Tombol Muat Lebih Banyak -->
+                <button id="load-more-btn" class="col-span-2 sm:col-span-3 md:col-span-1 lg:col-span-1 w-full bg-slate-600 hover:bg-slate-700 text-white font-bold py-2.5 px-4 rounded-lg transition h-full flex items-center justify-center transform hover:scale-105 hidden">
+                    Muat Lebih Banyak
+                </button>
+            </div>
+        </div>
+        
+        <!-- Galeri Foto -->
+        <div id="album-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-5">
+            <!-- Kartu foto akan dimasukkan di sini oleh JavaScript -->
+        </div>
+
+        <!-- Status Loading -->
+        <div id="loading-status" class="text-center my-12 hidden">
+            <div class="loader ease-linear rounded-full border-4 border-t-4 border-slate-300 h-12 w-12 mx-auto mb-4"></div>
+            <p class="text-lg text-slate-500">Memuat gambar...</p>
+        </div>
+
+    </main>
+
+    <!-- Modal untuk Pratinjau Gambar -->
+    <div id="image-modal" class="hidden fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center p-4" onclick="closeModal()">
+        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-2xl max-w-lg w-full max-h-[90vh] flex flex-col" onclick="event.stopPropagation()">
+            <img id="modal-img" src="" alt="Pratinjau Foto Mahasiswa" class="object-contain rounded-t-xl flex-grow min-h-0">
+            <div class="p-4 text-center border-t border-slate-200 dark:border-slate-700">
+                <p class="font-mono text-lg text-slate-800 dark:text-slate-200">NIM: <span id="modal-nim"></span></p>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // --- DOM Elements ---
+        const generateBtn = document.getElementById('generate-btn');
+        const loadMoreBtn = document.getElementById('load-more-btn');
+        const albumGrid = document.getElementById('album-grid');
+        const loadingStatus = document.getElementById('loading-status');
+        const themeToggle = document.getElementById('theme-toggle');
+        const modal = document.getElementById('image-modal');
+        const modalImg = document.getElementById('modal-img');
+        const modalNim = document.getElementById('modal-nim');
+
+        const inputAngkatan = document.getElementById('angkatan');
+        const inputFakultas = document.getElementById('fakultas');
+        const inputProdi = document.getElementById('prodi');
+        const inputNimStart = document.getElementById('nim-start');
+        const inputNimCount = document.getElementById('nim-count');
+
+        // --- State Variables ---
+        let currentNimNumber = 1;
+        let nimPrefix = '';
+        const baseUrl = 'https://ais.unmul.ac.id/file/foto/';
+
+        // --- Theme (Dark/Light Mode) Logic ---
+        const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;
+        const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
+
+        const applyTheme = (theme) => {
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark');
+                themeToggle.innerHTML = sunIcon;
+            } else {
+                document.documentElement.classList.remove('dark');
+                themeToggle.innerHTML = moonIcon;
+            }
+        };
+
+        themeToggle.addEventListener('click', () => {
+            const newTheme = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+            localStorage.setItem('theme', newTheme);
+            applyTheme(newTheme);
+        });
+
+        // --- Image Generation Logic ---
+        function pad(num, length) {
+            return num.toString().padStart(length, '0');
+        }
+
+        function createPhotoCard(nim) {
+            const imageUrl = baseUrl + nim;
+            const card = document.createElement('div');
+            card.className = 'bg-white dark:bg-slate-800 rounded-xl shadow-md overflow-hidden transform hover:-translate-y-1 transition-all duration-300 cursor-pointer';
+            card.onclick = () => openModal(imageUrl, nim);
+            
+            const imageContainer = document.createElement('div');
+            imageContainer.className = 'w-full aspect-w-1 aspect-h-1 bg-slate-200 dark:bg-slate-700';
+
+            const img = document.createElement('img');
+            img.src = imageUrl;
+            img.alt = `Foto Mahasiswa ${nim}`;
+            img.className = 'w-full h-full object-cover';
+            img.loading = 'lazy'; // Lazy loading for better performance
+
+            const placeholderUrl = `https://placehold.co/400x400/e2e8f0/4a5568?text=Tidak+Ditemukan`;
+            img.onerror = () => { img.src = placeholderUrl; };
+
+            const info = document.createElement('div');
+            info.className = 'p-3 text-center';
+            info.innerHTML = `<p class="font-mono text-sm text-slate-600 dark:text-slate-400">${nim}</p>`;
+            
+            imageContainer.appendChild(img);
+            card.appendChild(imageContainer);
+            card.appendChild(info);
+            
+            albumGrid.appendChild(card);
+        }
+
+        async function loadImages(count, isInitialLoad = false) {
+            loadingStatus.classList.remove('hidden');
+            loadMoreBtn.classList.add('hidden');
+
+            if (isInitialLoad) {
+                albumGrid.innerHTML = '';
+                nimPrefix = pad(inputAngkatan.value, 2) + pad(inputFakultas.value, 2) + pad(inputProdi.value, 3);
+                currentNimNumber = parseInt(inputNimStart.value, 10);
+            }
+
+            const nimEnd = currentNimNumber + count;
+            for (let i = currentNimNumber; i < nimEnd; i++) {
+                const nimLengkap = nimPrefix + pad(i, 3);
+                createPhotoCard(nimLengkap);
+            }
+            currentNimNumber = nimEnd;
+
+            loadingStatus.classList.add('hidden');
+            loadMoreBtn.classList.remove('hidden');
+        }
+
+        generateBtn.addEventListener('click', () => loadImages(parseInt(inputNimCount.value, 10), true));
+        loadMoreBtn.addEventListener('click', () => loadImages(parseInt(inputNimCount.value, 10), false));
+
+        // --- Modal Logic ---
+        function openModal(imageUrl, nim) {
+            modalImg.src = 'https://placehold.co/400x400/e2e8f0/4a5568?text=Memuat...'; // Placeholder
+            modalImg.src = imageUrl; // Actual image
+            modalNim.textContent = nim;
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+        
+        // Close modal with Escape key
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+
+        // --- Initial Load ---
+        window.onload = () => {
+            // Initialize theme
+            const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            applyTheme(savedTheme);
+            
+            // Initial image generation
+            loadImages(parseInt(inputNimCount.value, 10), true);
+        };
+    </script>
+
+</body>
+</html>
