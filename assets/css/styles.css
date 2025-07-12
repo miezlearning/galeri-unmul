@@ -39,3 +39,50 @@ input[type='number'] {
 #image-modal.hidden {
     display: none;
 }
+
+/* Agar warna biru Unmul berubah saat dark mode */
+.text-unmul-blue {
+    color: #004aad;
+}
+.dark .text-unmul-blue {
+    color: #fff !important;
+}
+
+/* Custom styles to integrate with existing JS/CSS */
+.bg-unmul-gradient {
+    background: linear-gradient(to right, #004aad, #007ee5); /* Warna biru Unmul */
+}
+.text-unmul-blue {
+    color: #004aad;
+}
+/* Efek scale pada tombol yang lebih halus */
+.hover-scale-button {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+.hover-scale-button:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+/* Efek hover pada kartu foto */
+.image-card-hover {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+.image-card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+/* Styling khusus untuk modal agar tidak terlalu menyilaukan */
+#image-modal {
+    background-color: rgba(0, 0, 0, 0.85);
+}
+#image-modal .dark\:bg-slate-800 {
+    background-color: #1f2937; /* slate-800 */
+}
+#image-modal .bg-white {
+    background-color: #ffffff;
+}
+/* Untuk menjaga proporsi gambar di modal */
+#modal-img {
+    max-width: calc(100% - 2rem); /* Mengurangi 1rem padding kiri/kanan */
+    max-height: calc(100vh - 6rem); /* Mengurangi padding atas/bawah + area teks */
+}

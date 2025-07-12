@@ -5,17 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Galeri Foto Mahasiswa Unmul</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Menambahkan font Poppins untuk kesan modern pada judul -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/styles.css">
+
 </head>
-<body class="bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-200 transition-colors duration-300">
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 transition-colors duration-300 font-sans">
 
     <!-- Header -->
-    <header class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm sticky top-0 z-20 shadow-sm">
+    <header class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm sticky top-0 z-50 shadow-sm border-b border-slate-200 dark:border-slate-700">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center py-4">
-                <h1 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">Galeri Foto Mahasiswa</h1>
-                <button id="theme-toggle" class="p-2 rounded-full text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+            <div class="flex justify-between items-center py-3.5"> <!-- Sedikit penyesuaian padding Y -->
+                <div class="flex items-center space-x-3">
+                    <!-- Logo Unmul -->
+                    <img src="https://upload.wikimedia.org/wikipedia/id/thumb/8/83/Unmul_logo_low.svg/50px-Unmul_logo_low.svg.png" alt="Logo Unmul" class="h-9 w-auto">
+                    <!-- Judul dengan font Poppins untuk kesan modern -->
+                    <h1 class="text-xl sm:text-2xl font-bold text-unmul-blue dark:text-white font-poppins">Galeri Foto Mahasiswa Unmul</h1>
+                </div>
+                <!-- Tombol Theme Toggle (tetap menggunakan ID yang sama agar JS tidak perlu diubah) -->
+                <button id="theme-toggle" class="p-2 rounded-full text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
                     <!-- Ikon akan diisi oleh JS -->
                 </button>
             </div>
@@ -24,40 +32,54 @@
 
     <main class="container mx-auto p-4 sm:p-6 lg:p-8">
         
-        <!-- Panel Kontrol -->
-        <div class="bg-white dark:bg-slate-800 p-5 rounded-xl shadow-md mb-8">
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-4 items-end">
-                <!-- Input Angkatan, Fakultas, Prodi -->
-                <div>
-                    <label for="angkatan" class="block text-sm font-medium mb-1.5">Angkatan</label>
-                    <input type="number" id="angkatan" value="23" class="w-full bg-slate-100 dark:bg-slate-700 border-transparent focus:ring-2 focus:ring-blue-500 focus:border-transparent rounded-lg p-2.5 text-center font-mono transition" placeholder="23">
+        <!-- Bagian Deskripsi atau Pengantar Singkat dengan Sentuhan Visual -->
+        <div class="text-center mb-12 px-4">
+            <h2 class="text-3xl sm:text-4xl font-bold text-unmul-blue dark:text-white font-poppins mb-3 border-b-2 border-unmul-blue border-opacity-30 pb-2 inline-block">
+                Galeri Foto AIS Mahasiswa UNMUL
+            </h2>
+            <p class="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto mt-3">
+                Temukan potret semangat dan kebersamaan mahasiswa Universitas Mulawarman. Filter berdasarkan angkatan, fakultas, dan program studi untuk menemukan cerita mereka.
+            </p>
+        </div>
+
+        <!-- Panel Kontrol dengan Styling Tambahan -->
+        <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-xl mb-10 border border-slate-200 dark:border-slate-700">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 md:gap-6 items-end">
+                
+                <!-- Input Angkatan -->
+                <div class="flex flex-col">
+                    <label for="angkatan" class="block text-sm font-semibold mb-1.5 text-slate-700 dark:text-slate-300">Angkatan</label>
+                    <!-- Input dengan fokus styling -->
+                    <input type="number" id="angkatan" value="23" class="w-full bg-slate-50 dark:bg-slate-700 border-slate-300 dark:border-slate-600 focus:ring-blue-500 focus:border-blue-500 rounded-lg p-3 text-center font-mono text-base shadow-sm transition-all duration-300" placeholder="23">
                 </div>
-                <div>
-                    <label for="fakultas" class="block text-sm font-medium mb-1.5">Fakultas</label>
-                    <input type="number" id="fakultas" value="09" class="w-full bg-slate-100 dark:bg-slate-700 border-transparent focus:ring-2 focus:ring-blue-500 focus:border-transparent rounded-lg p-2.5 text-center font-mono transition" placeholder="09">
+                
+                <!-- Input Fakultas -->
+                <div class="flex flex-col">
+                    <label for="fakultas" class="block text-sm font-semibold mb-1.5 text-slate-700 dark:text-slate-300">Fakultas</label>
+                    <input type="number" id="fakultas" value="09" class="w-full bg-slate-50 dark:bg-slate-700 border-slate-300 dark:border-slate-600 focus:ring-blue-500 focus:border-blue-500 rounded-lg p-3 text-center font-mono text-base shadow-sm transition-all duration-300" placeholder="09">
                 </div>
-                <div>
-                    <label for="prodi" class="block text-sm font-medium mb-1.5">Prodi</label>
-                    <input type="number" id="prodi" value="106" class="w-full bg-slate-100 dark:bg-slate-700 border-transparent focus:ring-2 focus:ring-blue-500 focus:border-transparent rounded-lg p-2.5 text-center font-mono transition" placeholder="106">
+                
+                <!-- Input Prodi -->
+                <div class="flex flex-col">
+                    <label for="prodi" class="block text-sm font-semibold mb-1.5 text-slate-700 dark:text-slate-300">Prodi</label>
+                    <input type="number" id="prodi" value="106" class="w-full bg-slate-50 dark:bg-slate-700 border-slate-300 dark:border-slate-600 focus:ring-blue-500 focus:border-blue-500 rounded-lg p-3 text-center font-mono text-base shadow-sm transition-all duration-300" placeholder="106">
                 </div>
-                <!-- Input Nomor Awal & Jumlah -->
-                <div class="grid grid-cols-2 gap-2">
-                    <div>
-                       <label for="nim-start" class="block text-sm font-medium mb-1.5">NIM Awal</label>
-                       <input type="number" id="nim-start" value="1" class="w-full bg-slate-100 dark:bg-slate-700 border-transparent focus:ring-2 focus:ring-blue-500 focus:border-transparent rounded-lg p-2.5 text-center font-mono transition" placeholder="1">
-                    </div>
-                    <div>
-                       <label for="nim-count" class="block text-sm font-medium mb-1.5">Jumlah</label>
-                       <input type="number" id="nim-count" value="18" class="w-full bg-slate-100 dark:bg-slate-700 border-transparent focus:ring-2 focus:ring-blue-500 focus:border-transparent rounded-lg p-2.5 text-center font-mono transition" placeholder="18">
-                    </div>
+                
+                <!-- Input Nomor Awal -->
+                <div class="flex flex-col">
+                   <label for="nim-start" class="block text-sm font-semibold mb-1.5 text-slate-700 dark:text-slate-300">NIM Awal</label>
+                   <input type="number" id="nim-start" value="1" class="w-full bg-slate-50 dark:bg-slate-700 border-slate-300 dark:border-slate-600 focus:ring-blue-500 focus:border-blue-500 rounded-lg p-3 text-center font-mono text-base shadow-sm transition-all duration-300" placeholder="1">
                 </div>
-                <!-- Tombol Tampilkan -->
-                <button id="generate-btn" class="col-span-2 sm:col-span-1 md:col-span-1 lg:col-span-1 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-4 rounded-lg transition h-full flex items-center justify-center transform hover:scale-105">
+                
+                <!-- Input Jumlah -->
+                <div class="flex flex-col">
+                   <label for="nim-count" class="block text-sm font-semibold mb-1.5 text-slate-700 dark:text-slate-300">Jumlah</label>
+                   <input type="number" id="nim-count" value="18" class="w-full bg-slate-50 dark:bg-slate-700 border-slate-300 dark:border-slate-600 focus:ring-blue-500 focus:border-blue-500 rounded-lg p-3 text-center font-mono text-base shadow-sm transition-all duration-300" placeholder="18">
+                </div>
+                
+                <!-- Tombol Tampilkan dengan Gradient dan Efek Hover -->
+                <button id="generate-btn" class="col-span-1 xl:col-span-1 w-full bg-unmul-gradient hover:bg-blue-800 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 shadow-md hover-scale-button focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
                     Tampilkan
-                </button>
-                 <!-- Tombol Muat Lebih Banyak -->
-                <button id="load-more-btn" class="col-span-2 sm:col-span-3 md:col-span-1 lg:col-span-1 w-full bg-slate-600 hover:bg-slate-700 text-white font-bold py-2.5 px-4 rounded-lg transition h-full flex items-center justify-center transform hover:scale-105 hidden">
-                    Muat Lebih Banyak
                 </button>
             </div>
         </div>
@@ -65,22 +87,37 @@
         <!-- Galeri Foto -->
         <div id="album-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-5">
             <!-- Kartu foto akan dimasukkan di sini oleh JavaScript -->
+            <!-- Anda bisa menambahkan struktur dasar untuk setiap kartu di sini jika diperlukan,
+                 tapi JS akan menimpanya -->
         </div>
 
         <!-- Status Loading -->
         <div id="loading-status" class="text-center my-12 hidden">
-            <div class="loader ease-linear rounded-full border-4 border-t-4 border-slate-300 h-12 w-12 mx-auto mb-4"></div>
-            <p class="text-lg text-slate-500">Memuat gambar...</p>
+            <!-- Loader (tetap menggunakan kelas 'loader' yang sudah didefinisikan di CSS) -->
+            <div class="loader ease-linear rounded-full border-4 border-t-4 border-blue-400 h-12 w-12 mx-auto mb-4"></div>
+            <p class="text-lg text-slate-500 dark:text-slate-300">Sedang mencari potret kebersamaan...</p>
+        </div>
+
+        <!-- Tombol Muat Lebih Banyak -->
+        <div class="text-center my-8">
+            <!-- Tombol Muat Lebih Banyak dengan Styling yang serupa dengan Tombol Tampilkan -->
+            <button id="load-more-btn" class="bg-slate-700 hover:bg-slate-800 dark:bg-slate-600 dark:hover:bg-slate-700 text-white font-bold py-3 px-6 rounded-lg transition-colors shadow-md hover-scale-button focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 hidden">
+                Muat Lebih Banyak
+            </button>
         </div>
 
     </main>
 
     <!-- Modal untuk Pratinjau Gambar -->
-    <div id="image-modal" class="hidden fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center p-4" onclick="closeModal()">
-        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-2xl max-w-lg w-full max-h-[90vh] flex flex-col" onclick="event.stopPropagation()">
-            <img id="modal-img" src="" alt="Pratinjau Foto Mahasiswa" class="object-contain rounded-t-xl flex-grow min-h-0">
-            <div class="p-4 text-center border-t border-slate-200 dark:border-slate-700">
-                <p class="font-mono text-lg text-slate-800 dark:text-slate-200">NIM: <span id="modal-nim"></span></p>
+    <div id="image-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 transition-opacity duration-300 ease-in-out bg-black/80 dark:bg-slate-900/90" onclick="closeModal()">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl max-w-lg w-full max-h-[90vh] flex flex-col overflow-hidden border border-slate-200 dark:border-slate-700" onclick="event.stopPropagation()">
+            <div class="flex justify-center items-center bg-slate-100 dark:bg-slate-900 p-4" style="min-height:300px;">
+                <img id="modal-img" src="" alt="Pratinjau Foto Mahasiswa" class="object-contain rounded-xl max-h-[60vh] max-w-full transition duration-300" style="background:transparent;">
+            </div>
+            <div class="p-4 text-center border-t border-slate-200 dark:border-slate-700 bg-gradient-to-r from-blue-50 to-blue-100 dark:from-slate-800 dark:to-slate-900">
+                <p class="font-mono text-lg font-semibold text-blue-700 dark:text-blue-300">
+                    NIM: <span id="modal-nim" class="bg-blue-100 dark:bg-blue-900 px-2 py-1 rounded text-blue-900 dark:text-blue-200 font-bold"></span>
+                </p>
             </div>
         </div>
     </div>
