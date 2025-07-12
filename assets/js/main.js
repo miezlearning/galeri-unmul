@@ -25,10 +25,10 @@ const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
 
 const applyTheme = (theme) => {
     if (theme === 'dark') {
-        document.documentElement.classList.add('dark');
+        document.documentElement.classList.add('dark'); // Ini yang paling penting
         themeToggle.innerHTML = sunIcon;
     } else {
-        document.documentElement.classList.remove('dark');
+        document.documentElement.classList.remove('dark'); // Ini yang paling penting
         themeToggle.innerHTML = moonIcon;
     }
 };

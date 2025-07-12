@@ -1,6 +1,10 @@
+/* style.css */
 body {
     font-family: 'Inter', sans-serif;
+    /* Pastikan transisi warna diterapkan ke seluruh body */
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
+
 /* Animasi spinner */
 .loader {
     border-top-color: #3b82f6; /* blue-500 */
@@ -9,6 +13,7 @@ body {
 @keyframes spin {
     to { transform: rotate(360deg); }
 }
+
 /* Mencegah input number memiliki panah */
 input[type='number']::-webkit-inner-spin-button,
 input[type='number']::-webkit-outer-spin-button {
@@ -18,6 +23,7 @@ input[type='number']::-webkit-outer-spin-button {
 input[type='number'] {
     -moz-appearance: textfield;
 }
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
     width: 8px;
@@ -25,6 +31,7 @@ input[type='number'] {
 ::-webkit-scrollbar-track {
     background: #f1f5f9; /* slate-100 */
 }
+/* PENTING: Gunakan kelas 'dark' untuk menimpa scrollbar track di mode gelap */
 .dark ::-webkit-scrollbar-track {
     background: #1e293b; /* slate-800 */
 }
@@ -35,26 +42,41 @@ input[type='number'] {
 ::-webkit-scrollbar-thumb:hover {
     background: #64748b; /* slate-500 */
 }
+
 /* Styling untuk modal */
+/* Ini sudah benar, menggunakan hidden class */
 #image-modal.hidden {
     display: none;
 }
 
-/* Agar warna biru Unmul berubah saat dark mode */
+/* Styling untuk warna teks biru Unmul */
+/* DEKLARASI WARNA UNTUK MODE TERANG JIKA DIPERLUKAN */
 .text-unmul-blue {
-    color: #004aad;
+    color: #004aad; /* Warna biru Unmul di mode terang */
 }
-.dark .text-unmul-blue {
+
+/* PENTING: Tailwind's 'dark' modifier akan otomatis menimpa ini.
+   Jika Anda menambahkan kelas `dark:text-white` ke elemen dengan `text-unmul-blue`,
+   maka Tailwind akan mengganti `color: #004aad;` dengan `color: #ffffff;` di mode gelap.
+   Aturan `dark .text-unmul-blue { color: #fff !important; }` yang Anda tambahkan bisa
+   menyebabkan konflik atau tidak diperlukan jika Tailwind sudah dikonfigurasi dengan benar.
+   Mari kita coba hapus ini dan lihat apakah Tailwind melakukannya secara otomatis.
+*/
+/* .dark .text-unmul-blue {
     color: #fff !important;
-}
+} */
+
 
 /* Custom styles to integrate with existing JS/CSS */
 .bg-unmul-gradient {
     background: linear-gradient(to right, #004aad, #007ee5); /* Warna biru Unmul */
 }
-.text-unmul-blue {
-    color: #004aad;
-}
+
+/* PENTING: Pastikan elemen yang menggunakan 'text-unmul-blue' juga memiliki kelas dark.
+   Contoh: class="text-xl sm:text-2xl font-bold text-unmul-blue dark:text-white font-poppins"
+   Sudah ada di HTML Anda, jadi seharusnya baik.
+*/
+
 /* Efek scale pada tombol yang lebih halus */
 .hover-scale-button {
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
@@ -63,6 +85,7 @@ input[type='number'] {
     transform: translateY(-3px) scale(1.02);
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
+
 /* Efek hover pada kartu foto */
 .image-card-hover {
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
@@ -71,18 +94,40 @@ input[type='number'] {
     transform: translateY(-5px);
     box-shadow: 0 10px 20px rgba(0,0,0,0.15);
 }
+
 /* Styling khusus untuk modal agar tidak terlalu menyilaukan */
+/* Ini juga sudah cukup baik */
 #image-modal {
     background-color: rgba(0, 0, 0, 0.85);
 }
-#image-modal .dark\:bg-slate-800 {
-    background-color: #1f2937; /* slate-800 */
+/* Pastikan kelas dark di Tailwind bekerja untuk modal background */
+.dark #image-modal {
+    background-color: rgba(0, 0, 0, 0.9); /* Sedikit lebih gelap di dark mode */
 }
-#image-modal .bg-white {
-    background-color: #ffffff;
-}
+
+/* Perbaikan pada kelas dark Tailwind yang Anda gunakan di HTML */
+/* Contoh:
+   #image-modal .dark\:bg-slate-800 { ... }
+   Ini sudah benar jika Anda tidak menggunakan kelas `.dark` di `body` atau `html`.
+   Tetapi karena Anda sudah menambahkan `dark` ke `html` di HTML Anda,
+   maka `dark:bg-slate-800` seharusnya bekerja langsung tanpa `\`.
+   Jadi, ubah di HTML:
+   <div class="bg-white dark:bg-slate-800 ..." -> <div class="bg-white dark:bg-slate-800 ..." (ini sudah benar di HTML Anda)
+*/
+
 /* Untuk menjaga proporsi gambar di modal */
+/* Ini juga sudah cukup baik */
 #modal-img {
-    max-width: calc(100% - 2rem); /* Mengurangi 1rem padding kiri/kanan */
-    max-height: calc(100vh - 6rem); /* Mengurangi padding atas/bawah + area teks */
+    max-width: calc(100% - 2rem);
+    max-height: calc(100vh - 6rem);
+}
+
+/* Tambahan: Pastikan elemen teks di dalam modal juga merespons dark mode */
+/* Misalnya, jika Anda ingin teks NIM berubah */
+.dark #image-modal p {
+    color: #cbd5e1; /* slate-300 */
+}
+.dark #image-modal span {
+    color: #93c5fd; /* blue-300 */
+    background-color: #2563eb; /* blue-700 */
 }
