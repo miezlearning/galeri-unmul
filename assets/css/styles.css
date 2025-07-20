@@ -1,14 +1,16 @@
 /* style.css */
 body {
     font-family: 'Inter', sans-serif;
-    /* Pastikan transisi warna diterapkan ke seluruh body */
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Animasi spinner */
+/* Animasi spinner dengan dukungan dark mode */
 .loader {
     border-top-color: #3b82f6; /* blue-500 */
     animation: spin 1s linear infinite;
+}
+.dark .loader {
+    border-top-color: #60a5fa; /* blue-400 */
 }
 @keyframes spin {
     to { transform: rotate(360deg); }
@@ -49,27 +51,20 @@ input[type='number'] {
     display: none;
 }
 
-/* Styling untuk warna teks biru Unmul */
-/* DEKLARASI WARNA UNTUK MODE TERANG JIKA DIPERLUKAN */
+/* Styling untuk warna teks biru Unmul dengan dukungan dark mode yang lebih baik */
 .text-unmul-blue {
-    color: #004aad; /* Warna biru Unmul di mode terang */
+    color: #004aad;
+}
+.dark .text-unmul-blue {
+    color: #93c5fd !important; /* blue-300 untuk dark mode */
 }
 
-/* PENTING: Tailwind's 'dark' modifier akan otomatis menimpa ini.
-   Jika Anda menambahkan kelas `dark:text-white` ke elemen dengan `text-unmul-blue`,
-   maka Tailwind akan mengganti `color: #004aad;` dengan `color: #ffffff;` di mode gelap.
-   Aturan `dark .text-unmul-blue { color: #fff !important; }` yang Anda tambahkan bisa
-   menyebabkan konflik atau tidak diperlukan jika Tailwind sudah dikonfigurasi dengan benar.
-   Mari kita coba hapus ini dan lihat apakah Tailwind melakukannya secara otomatis.
-*/
-/* .dark .text-unmul-blue {
-    color: #fff !important;
-} */
-
-
-/* Custom styles to integrate with existing JS/CSS */
+/* Custom gradient dengan dukungan dark mode */
 .bg-unmul-gradient {
-    background: linear-gradient(to right, #004aad, #007ee5); /* Warna biru Unmul */
+    background: linear-gradient(to right, #004aad, #007ee5);
+}
+.dark .bg-unmul-gradient {
+    background: linear-gradient(to right, #1e40af, #3b82f6);
 }
 
 /* PENTING: Pastikan elemen yang menggunakan 'text-unmul-blue' juga memiliki kelas dark.
@@ -77,7 +72,7 @@ input[type='number'] {
    Sudah ada di HTML Anda, jadi seharusnya baik.
 */
 
-/* Efek scale pada tombol yang lebih halus */
+/* Efek hover yang mendukung dark mode */
 .hover-scale-button {
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
@@ -85,8 +80,10 @@ input[type='number'] {
     transform: translateY(-3px) scale(1.02);
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
+.dark .hover-scale-button:hover {
+    box-shadow: 0 4px 10px rgba(255,255,255,0.1);
+}
 
-/* Efek hover pada kartu foto */
 .image-card-hover {
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
@@ -94,40 +91,25 @@ input[type='number'] {
     transform: translateY(-5px);
     box-shadow: 0 10px 20px rgba(0,0,0,0.15);
 }
+.dark .image-card-hover:hover {
+    box-shadow: 0 10px 20px rgba(255,255,255,0.1);
+}
 
-/* Styling khusus untuk modal agar tidak terlalu menyilaukan */
-/* Ini juga sudah cukup baik */
+/* Modal styling dengan dukungan dark mode yang lebih baik */
+#image-modal.hidden {
+    display: none;
+}
+
 #image-modal {
     background-color: rgba(0, 0, 0, 0.85);
 }
-/* Pastikan kelas dark di Tailwind bekerja untuk modal background */
 .dark #image-modal {
-    background-color: rgba(0, 0, 0, 0.9); /* Sedikit lebih gelap di dark mode */
+    background-color: rgba(0, 0, 0, 0.95);
 }
 
-/* Perbaikan pada kelas dark Tailwind yang Anda gunakan di HTML */
-/* Contoh:
-   #image-modal .dark\:bg-slate-800 { ... }
-   Ini sudah benar jika Anda tidak menggunakan kelas `.dark` di `body` atau `html`.
-   Tetapi karena Anda sudah menambahkan `dark` ke `html` di HTML Anda,
-   maka `dark:bg-slate-800` seharusnya bekerja langsung tanpa `\`.
-   Jadi, ubah di HTML:
-   <div class="bg-white dark:bg-slate-800 ..." -> <div class="bg-white dark:bg-slate-800 ..." (ini sudah benar di HTML Anda)
-*/
-
-/* Untuk menjaga proporsi gambar di modal */
-/* Ini juga sudah cukup baik */
+/* Styling gambar modal */
 #modal-img {
     max-width: calc(100% - 2rem);
     max-height: calc(100vh - 6rem);
-}
-
-/* Tambahan: Pastikan elemen teks di dalam modal juga merespons dark mode */
-/* Misalnya, jika Anda ingin teks NIM berubah */
-.dark #image-modal p {
-    color: #cbd5e1; /* slate-300 */
-}
-.dark #image-modal span {
-    color: #93c5fd; /* blue-300 */
-    background-color: #2563eb; /* blue-700 */
+    transition: all 0.3s ease;
 }

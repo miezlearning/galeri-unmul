@@ -5,10 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Galeri Foto Mahasiswa Unmul</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'poppins': ['Poppins', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
     <!-- Menambahkan font Poppins untuk kesan modern pada judul -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/styles.css">
 
+    <style>
+        /* Tambahan style untuk memastikan dark mode bekerja dengan baik */
+        .bg-unmul-gradient {
+            background: linear-gradient(to right, #004aad, #007ee5);
+        }
+        .dark .bg-unmul-gradient {
+            background: linear-gradient(to right, #1e40af, #3b82f6);
+        }
+        .text-unmul-blue {
+            color: #004aad;
+        }
+        .dark .text-unmul-blue {
+            color: #93c5fd !important;
+        }
+        .font-poppins {
+            font-family: 'Poppins', sans-serif;
+        }
+        /* Pastikan transisi berjalan lancar */
+        * {
+            transition-property: background-color, border-color, color, fill, stroke;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 300ms;
+        }
+    </style>
 </head>
 <body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 transition-colors duration-300 font-sans">
 
@@ -110,13 +146,13 @@
 
     <!-- Modal untuk Pratinjau Gambar -->
     <div id="image-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 transition-opacity duration-300 ease-in-out bg-black/80 dark:bg-slate-900/90" onclick="closeModal()">
-        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl max-w-lg w-full max-h-[90vh] flex flex-col overflow-hidden border border-slate-200 dark:border-slate-700" onclick="event.stopPropagation()">
-            <div class="flex justify-center items-center bg-slate-100 dark:bg-slate-900 p-4" style="min-height:300px;">
-                <img id="modal-img" src="" alt="Pratinjau Foto Mahasiswa" class="object-contain rounded-xl max-h-[60vh] max-w-full transition duration-300" style="background:transparent;">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl max-w-lg w-full max-h-[90vh] flex flex-col overflow-hidden border border-slate-300 dark:border-slate-700" onclick="event.stopPropagation()">
+            <div class="flex justify-center items-center bg-slate-100 dark:bg-slate-900 p-6 min-h-[300px]">
+                <img id="modal-img" src="" alt="Pratinjau Foto Mahasiswa" class="object-contain rounded-xl max-h-[55vh] max-w-full transition duration-300" />
             </div>
-            <div class="p-4 text-center border-t border-slate-200 dark:border-slate-700 bg-gradient-to-r from-blue-50 to-blue-100 dark:from-slate-800 dark:to-slate-900">
-                <p class="font-mono text-lg font-semibold text-blue-700 dark:text-blue-300">
-                    NIM: <span id="modal-nim" class="bg-blue-100 dark:bg-blue-900 px-2 py-1 rounded text-blue-900 dark:text-blue-200 font-bold"></span>
+            <div class="p-5 text-center border-t border-slate-200 dark:border-slate-700 bg-blue-50 dark:bg-slate-900">
+                <p class="font-mono text-lg font-semibold text-blue-800 dark:text-blue-200">
+                    NIM: <span id="modal-nim" class="bg-blue-100 dark:bg-blue-800 px-3 py-1 rounded text-blue-900 dark:text-blue-100 font-bold tracking-wider shadow-sm"></span>
                 </p>
             </div>
         </div>

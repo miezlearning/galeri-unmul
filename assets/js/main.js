@@ -24,19 +24,24 @@ const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
 const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
 
 const applyTheme = (theme) => {
+    const html = document.documentElement;
     if (theme === 'dark') {
-        document.documentElement.classList.add('dark'); // Ini yang paling penting
+        html.classList.add('dark');
         themeToggle.innerHTML = sunIcon;
+        console.log('Dark mode activated'); // Debug
     } else {
-        document.documentElement.classList.remove('dark'); // Ini yang paling penting
+        html.classList.remove('dark');
         themeToggle.innerHTML = moonIcon;
+        console.log('Light mode activated'); // Debug
     }
 };
 
 themeToggle.addEventListener('click', () => {
-    const newTheme = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+    const html = document.documentElement;
+    const newTheme = html.classList.contains('dark') ? 'light' : 'dark';
     localStorage.setItem('theme', newTheme);
     applyTheme(newTheme);
+    console.log('Theme changed to:', newTheme); // Debug
 });
 
 // --- Image Generation Logic ---
@@ -47,24 +52,28 @@ function pad(num, length) {
 function createPhotoCard(nim) {
     const imageUrl = baseUrl + nim;
     const card = document.createElement('div');
-    card.className = 'bg-white dark:bg-slate-800 rounded-xl shadow-md overflow-hidden transform hover:-translate-y-1 transition-all duration-300 cursor-pointer';
+    // Menambahkan class-class yang mendukung dark mode secara konsisten
+    card.className = 'bg-white dark:bg-slate-800 rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-2 cursor-pointer border border-slate-200 dark:border-slate-700';
     card.onclick = () => openModal(imageUrl, nim);
     
     const imageContainer = document.createElement('div');
-    imageContainer.className = 'w-full aspect-w-1 aspect-h-1 bg-slate-200 dark:bg-slate-700';
+    imageContainer.className = 'w-full aspect-square bg-slate-100 dark:bg-slate-700 flex items-center justify-center';
 
     const img = document.createElement('img');
     img.src = imageUrl;
     img.alt = `Foto Mahasiswa ${nim}`;
     img.className = 'w-full h-full object-cover';
-    img.loading = 'lazy'; // Lazy loading for better performance
+    img.loading = 'lazy';
 
-    const placeholderUrl = `https://placehold.co/400x400/e2e8f0/4a5568?text=Tidak+Ditemukan`;
-    img.onerror = () => { img.src = placeholderUrl; };
+    const placeholderUrl = `https://placehold.co/400x400/e2e8f0/64748b?text=Not+Found`;
+    img.onerror = () => { 
+        img.src = placeholderUrl; 
+        img.classList.add('opacity-50'); // Membuat placeholder sedikit redup
+    };
 
     const info = document.createElement('div');
-    info.className = 'p-3 text-center';
-    info.innerHTML = `<p class="font-mono text-sm text-slate-600 dark:text-slate-400">${nim}</p>`;
+    info.className = 'p-3 text-center bg-slate-50 dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700';
+    info.innerHTML = `<p class="font-mono text-sm text-slate-700 dark:text-slate-300 tracking-wider">${nim}</p>`;
     
     imageContainer.appendChild(img);
     card.appendChild(imageContainer);
