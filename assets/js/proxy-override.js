@@ -11,16 +11,16 @@
     try {
       const raw = typeof input === 'string' ? input : (input && input.url) ? input.url : '';
       const url = new URL(raw, window.location.origin);
-      // If code tries to call relative /api (old or new), rewrite to absolute Vercel domain
-      if (url.pathname === '/api' || url.pathname.startsWith('/api/')) {
-        const absolute = VERCEL_HOST + url.pathname + (url.search || '');
-        return originalFetch(absolute, init);
-      }
-      // Backward-compat: If code tries to call relative /api/pddikti-proxy, rewrite to absolute Vercel proxy (new base)
+      // Backward-compat: If code tries to call legacy /api/pddikti-proxy, rewrite to new /api route on Vercel
       if (url.pathname.startsWith('/api/pddikti-proxy')) {
         const target = url.searchParams.get('url') || '';
         const proxied = PROXY_BASE + encodeURIComponent(target);
         return originalFetch(proxied, init);
+      }
+      // If code tries to call relative /api (old or new), rewrite to absolute Vercel domain
+      if (url.pathname === '/api' || url.pathname.startsWith('/api/')) {
+        const absolute = VERCEL_HOST + url.pathname + (url.search || '');
+        return originalFetch(absolute, init);
       }
       // If code tries to call PDDIKTI API directly, rewrite to proxy
       if (url.href.startsWith('https://api-pddikti.ridwaanhall.com/')) {

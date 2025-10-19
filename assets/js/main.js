@@ -1,1 +1,359 @@
-const _0x66b9e2=_0x16bc;(function(_0x12c0a,_0x1f367e){const _0x516731=_0x16bc,_0x3a5c6b=_0x12c0a();while(!![]){try{const _0x2ee3c1=-parseInt(_0x516731(0x1fd))/0x1+-parseInt(_0x516731(0x1be))/0x2*(parseInt(_0x516731(0x1f0))/0x3)+parseInt(_0x516731(0x1e3))/0x4*(parseInt(_0x516731(0x215))/0x5)+-parseInt(_0x516731(0x227))/0x6+parseInt(_0x516731(0x213))/0x7+parseInt(_0x516731(0x1b1))/0x8+parseInt(_0x516731(0x20c))/0x9*(-parseInt(_0x516731(0x1ec))/0xa);if(_0x2ee3c1===_0x1f367e)break;else _0x3a5c6b['push'](_0x3a5c6b['shift']());}catch(_0x46d1e3){_0x3a5c6b['push'](_0x3a5c6b['shift']());}}}(_0x1cfb,0x8884f));const generateBtn=document[_0x66b9e2(0x1cd)](_0x66b9e2(0x1e5)),loadMoreBtn=document[_0x66b9e2(0x1cd)](_0x66b9e2(0x1ce)),albumGrid=document['getElementById']('album-grid'),loadingStatus=document[_0x66b9e2(0x1cd)](_0x66b9e2(0x1d8)),themeToggle=document[_0x66b9e2(0x1cd)]('theme-toggle'),modal=document['getElementById']('image-modal'),modalImg=document[_0x66b9e2(0x1cd)]('modal-img'),modalNim=document[_0x66b9e2(0x1cd)]('modal-nim'),generateBtnHero=document[_0x66b9e2(0x1cd)](_0x66b9e2(0x1bd)),inputAngkatan=document[_0x66b9e2(0x1cd)]('angkatan'),inputFakultas=document[_0x66b9e2(0x1cd)](_0x66b9e2(0x1bf)),inputProdi=document[_0x66b9e2(0x1cd)]('prodi'),inputNimStart=document[_0x66b9e2(0x1cd)](_0x66b9e2(0x1e1)),inputNimCount=document[_0x66b9e2(0x1cd)]('nim-count'),inputPddiktiKeyword=document[_0x66b9e2(0x1cd)](_0x66b9e2(0x1b5));let currentNimNumber=0x1,nimPrefix='';const baseUrl='https://ais.unmul.ac.id/file/foto/',PDDIKTI_API='https://api-pddikti.ridwaanhall.com/search/mhs/',mahasiswaCache=new Map(),MAX_CONCURRENT=0x4;function _0x1cfb(){const _0x94176c=['https://placehold.co/400x400/e2e8f0/4a5568?text=Memuat...','getItem','nim','set','keydown','classList','<svg\x20xmlns=\x22http://www.w3.org/2000/svg\x22\x20width=\x2224\x22\x20height=\x2224\x22\x20viewBox=\x220\x200\x2024\x2024\x22\x20fill=\x22none\x22\x20stroke=\x22currentColor\x22\x20stroke-width=\x222\x22\x20stroke-linecap=\x22round\x22\x20stroke-linejoin=\x22round\x22><circle\x20cx=\x2212\x22\x20cy=\x2212\x22\x20r=\x225\x22/><line\x20x1=\x2212\x22\x20y1=\x221\x22\x20x2=\x2212\x22\x20y2=\x223\x22/><line\x20x1=\x2212\x22\x20y1=\x2221\x22\x20x2=\x2212\x22\x20y2=\x2223\x22/><line\x20x1=\x224.22\x22\x20y1=\x224.22\x22\x20x2=\x225.64\x22\x20y2=\x225.64\x22/><line\x20x1=\x2218.36\x22\x20y1=\x2218.36\x22\x20x2=\x2219.78\x22\x20y2=\x2219.78\x22/><line\x20x1=\x221\x22\x20y1=\x2212\x22\x20x2=\x223\x22\x20y2=\x2212\x22/><line\x20x1=\x2221\x22\x20y1=\x2212\x22\x20x2=\x2223\x22\x20y2=\x2212\x22/><line\x20x1=\x224.22\x22\x20y1=\x2219.78\x22\x20x2=\x225.64\x22\x20y2=\x2218.36\x22/><line\x20x1=\x2218.36\x22\x20y1=\x225.64\x22\x20x2=\x2219.78\x22\x20y2=\x224.22\x22/></svg>','\x20—\x20','https://api.allorigins.win/raw?url=','message','innerHTML','getElementById','load-more-btn','Timeout','task','debug','get','Nama:\x20Tidak\x20tersedia','setItem','nama','application/json','isArray','loading-status','signal','click','Nama:\x20memuat…','Escape','Theme\x20changed\x20to:','text','resolve','value','nim-start','onclick','7112IGzqmo','text-sm\x20text-slate-600\x20dark:text-slate-300\x20mt-1\x20skeleton-text\x20px-8\x20py-1\x20inline-block','generate-btn','loading','lazy','error','Prodi:\x20Tidak\x20tersedia','documentElement','abort','4180wNWIwO','skeleton','key','has','1671uSjcXv','w-full\x20aspect-square\x20bg-slate-100\x20dark:bg-slate-700\x20flex\x20items-center\x20justify-center\x20skeleton','src','Tidak\x20tersedia','onerror','warn','parse','find','text-xs\x20text-slate-500\x20dark:text-slate-400\x20skeleton-text\x20px-6\x20py-1\x20inline-block\x20mt-1','hidden','album-grid','overflow','onload','107799zgiKVw','sinkatan_pt','test','toString','dark','opacity-0','undefined','w-full\x20h-full\x20object-cover\x20opacity-0\x20transition-opacity\x20duration-300','Gagal\x20memuat\x20data\x20PDDIKTI\x20(proxy)','(prefers-color-scheme:\x20dark)','addEventListener','trim','bg-white\x20dark:bg-slate-800\x20rounded-xl\x20shadow-lg\x20overflow-hidden\x20transform\x20transition-all\x20duration-300\x20hover:-translate-y-2\x20cursor-pointer\x20border\x20border-slate-200\x20dark:border-slate-700\x20image-card-hover','className','hostname','11304XhGtBe','push','\x20universitas\x20mulawarman','PDDIKTI\x20direct','mahasiswa','json','appendChild','7122129usmbkO','remove','445NgtwdU','Respon\x20proxy\x20tidak\x20valid','Tidak\x20ada\x20hasil\x20PDDIKTI\x20untuk\x20NIM:','scrollIntoView','style','length','skeleton-text','then','finally','matchMedia','Gagal\x20memuat\x20data\x20PDDIKTI','div','contains','textContent','light','nama_prodi','Foto\x20Mahasiswa\x20','createElement','4480668MBVLil','PDDIKTI\x20direct\x20fetch\x20gagal,\x20mencoba\x20via\x20proxy:','7570656raCOVX','body','Nama:\x20','PDDIKTI\x20proxy\x20fetch\x20juga\x20gagal:','pddikti-keyword','reject','\x20unmul','race','Prodi:\x20memuat…','theme','<svg\x20xmlns=\x22http://www.w3.org/2000/svg\x22\x20width=\x2224\x22\x20height=\x2224\x22\x20viewBox=\x220\x200\x2024\x2024\x22\x20fill=\x22none\x22\x20stroke=\x22currentColor\x22\x20stroke-width=\x222\x22\x20stroke-linecap=\x22round\x22\x20stroke-linejoin=\x22round\x22><path\x20d=\x22M21\x2012.79A9\x209\x200\x201\x201\x2011.21\x203\x207\x207\x200\x200\x200\x2021\x2012.79z\x22></path></svg>','add','generate-btn-hero','658BtTgzV','fakultas','log','opacity-50'];_0x1cfb=function(){return _0x94176c;};return _0x1cfb();}let activeRequests=0x0;const requestQueue=[];function runNext(){const _0x376da4=_0x66b9e2;if(activeRequests>=MAX_CONCURRENT)return;const _0x45da29=requestQueue['shift']();if(!_0x45da29)return;activeRequests++,Promise['resolve']()[_0x376da4(0x21c)](_0x45da29[_0x376da4(0x1d0)])[_0x376da4(0x21c)](_0x764b46=>_0x45da29[_0x376da4(0x1df)](_0x764b46))['catch'](_0x171bc9=>_0x45da29[_0x376da4(0x1b6)](_0x171bc9))[_0x376da4(0x21d)](()=>{activeRequests--,runNext();});}function enqueueTask(_0x1c55d7){return new Promise((_0x349cb6,_0x3904a9)=>{const _0x322e08=_0x16bc;requestQueue[_0x322e08(0x20d)]({'task':_0x1c55d7,'resolve':_0x349cb6,'reject':_0x3904a9}),runNext();});}function withTimeout(_0x330b37,_0x2101ec=0x2710){const _0x3e3e88=_0x66b9e2,_0x48c307=new AbortController(),_0x5acc4c=setTimeout(()=>_0x48c307[_0x3e3e88(0x1eb)](),_0x2101ec);return{'exec':Promise[_0x3e3e88(0x1b8)]([_0x330b37(_0x48c307[_0x3e3e88(0x1d9)]),new Promise((_0xffa440,_0x59da82)=>setTimeout(()=>_0x59da82(new Error(_0x3e3e88(0x1cf))),_0x2101ec))])[_0x3e3e88(0x21d)](()=>clearTimeout(_0x5acc4c)),'controller':_0x48c307};}async function searchMahasiswa(_0x307383,_0x4942c8){const _0x20e07a=_0x66b9e2,_0x15bac0=PDDIKTI_API+encodeURIComponent(_0x307383),_0x252ca8=typeof location!==_0x20e07a(0x203)&&/miez\.site$|vercel\.app$/i[_0x20e07a(0x1ff)](location[_0x20e07a(0x20b)]),_0x494219='/api/pddikti-proxy?url='+encodeURIComponent(_0x15bac0),_0x58efc5=_0x252ca8?_0x494219:_0x15bac0,_0x70d84=async()=>{const _0x203474=_0x20e07a,_0x2470b8=await fetch(_0x58efc5,{'headers':{'Accept':_0x203474(0x1d6)},'signal':_0x4942c8});if(!_0x2470b8['ok'])throw new Error(_0x203474(0x21f));return _0x2470b8[_0x203474(0x211)]();},_0x3391d9=async()=>{const _0x210537=_0x20e07a,_0x4b70ea=_0x210537(0x1ca)+encodeURIComponent(_0x15bac0),_0x5ca26c=await fetch(_0x4b70ea,{'headers':{'Accept':'application/json'},'signal':_0x4942c8});if(!_0x5ca26c['ok'])throw new Error(_0x210537(0x205));const _0xa2b1b6=await _0x5ca26c[_0x210537(0x1de)]();try{return JSON[_0x210537(0x1f6)](_0xa2b1b6);}catch(_0x1ecb59){try{return JSON[_0x210537(0x1f6)](String(_0xa2b1b6));}catch{throw new Error(_0x210537(0x216));}}},_0x3cbf5b=_0x160874=>{const _0x328307=_0x20e07a;if(Array[_0x328307(0x1d7)](_0x160874))return _0x160874;if(_0x160874&&Array[_0x328307(0x1d7)](_0x160874[_0x328307(0x210)]))return _0x160874[_0x328307(0x210)];return[];};try{const _0x4b8770=await _0x70d84(),_0x840a58=_0x3cbf5b(_0x4b8770);return console['debug'](_0x20e07a(0x20f),{'query':_0x307383,'count':_0x840a58[_0x20e07a(0x21a)]}),_0x840a58;}catch(_0x5b3202){console[_0x20e07a(0x1f5)](_0x20e07a(0x228),_0x5b3202?.[_0x20e07a(0x1cb)]||_0x5b3202);try{const _0x588bda=await _0x3391d9(),_0x262546=_0x3cbf5b(_0x588bda);return console[_0x20e07a(0x1d1)]('PDDIKTI\x20proxy',{'query':_0x307383,'count':_0x262546[_0x20e07a(0x21a)]}),_0x262546;}catch(_0x4b1430){return console[_0x20e07a(0x1e8)](_0x20e07a(0x1b4),_0x4b1430?.[_0x20e07a(0x1cb)]||_0x4b1430),[];}}}async function fetchMahasiswaByNim(_0x4b13f1){const _0x19292e=_0x66b9e2;if(mahasiswaCache[_0x19292e(0x1ef)](_0x4b13f1))return mahasiswaCache[_0x19292e(0x1d2)](_0x4b13f1);const _0x4b9a7d=async()=>{const _0x2e4dcd=_0x19292e;try{const _0x5a491c=(inputPddiktiKeyword?.['value']||'')[_0x2e4dcd(0x208)](),_0x5b95f9=[_0x4b13f1];if(_0x5a491c)_0x5b95f9[_0x2e4dcd(0x20d)](_0x4b13f1+'\x20'+_0x5a491c);_0x5b95f9['push'](_0x4b13f1+_0x2e4dcd(0x20e)),_0x5b95f9[_0x2e4dcd(0x20d)](_0x4b13f1+_0x2e4dcd(0x1b7));let _0x3c7858=[];for(const _0x45ea3f of _0x5b95f9){const {exec:_0xa29009}=withTimeout(_0x35669b=>searchMahasiswa(_0x45ea3f,_0x35669b),0x2710),_0x57d69b=await _0xa29009;if(Array[_0x2e4dcd(0x1d7)](_0x57d69b)&&_0x57d69b['length']){_0x3c7858=_0x57d69b;break;}}const _0x1f523a=_0x3c7858[_0x2e4dcd(0x1f7)](_0x5ab92a=>(_0x5ab92a['nim']||'')[_0x2e4dcd(0x208)]()===_0x4b13f1['trim']()),_0x1f534d=_0x1f523a||_0x3c7858[0x0]||null;if(_0x1f534d){const _0x56894b={'id':_0x1f534d['id'],'nama':_0x1f534d['nama'],'nim':_0x1f534d[_0x2e4dcd(0x1c4)],'nama_pt':_0x1f534d['nama_pt'],'sinkatan_pt':_0x1f534d[_0x2e4dcd(0x1fe)],'nama_prodi':_0x1f534d['nama_prodi']};return mahasiswaCache[_0x2e4dcd(0x1c5)](_0x4b13f1,_0x56894b),_0x56894b;}else return console[_0x2e4dcd(0x1f5)](_0x2e4dcd(0x217),_0x4b13f1),mahasiswaCache[_0x2e4dcd(0x1c5)](_0x4b13f1,null),null;}catch(_0x14eb1f){return mahasiswaCache[_0x2e4dcd(0x1c5)](_0x4b13f1,null),null;}};return enqueueTask(_0x4b9a7d);}const sunIcon=_0x66b9e2(0x1c8),moonIcon=_0x66b9e2(0x1bb),applyTheme=_0x32bbde=>{const _0x1e7b4f=_0x66b9e2,_0x977ce=document['documentElement'];_0x32bbde===_0x1e7b4f(0x201)?(_0x977ce[_0x1e7b4f(0x1c7)][_0x1e7b4f(0x1bc)](_0x1e7b4f(0x201)),themeToggle[_0x1e7b4f(0x1cc)]=sunIcon,console[_0x1e7b4f(0x1c0)]('Dark\x20mode\x20activated')):(_0x977ce[_0x1e7b4f(0x1c7)]['remove'](_0x1e7b4f(0x201)),themeToggle[_0x1e7b4f(0x1cc)]=moonIcon,console[_0x1e7b4f(0x1c0)]('Light\x20mode\x20activated'));};themeToggle['addEventListener'](_0x66b9e2(0x1da),()=>{const _0x40c160=_0x66b9e2,_0x5f06ea=document[_0x40c160(0x1ea)],_0x5d04f4=_0x5f06ea[_0x40c160(0x1c7)][_0x40c160(0x221)](_0x40c160(0x201))?_0x40c160(0x223):_0x40c160(0x201);localStorage[_0x40c160(0x1d4)](_0x40c160(0x1ba),_0x5d04f4),applyTheme(_0x5d04f4),console[_0x40c160(0x1c0)](_0x40c160(0x1dd),_0x5d04f4);});function pad(_0x247a96,_0x4535c1){const _0x596db7=_0x66b9e2;return _0x247a96[_0x596db7(0x200)]()['padStart'](_0x4535c1,'0');}function createPhotoCard(_0x3721a8){const _0x5806c9=_0x66b9e2,_0x16b0ae=baseUrl+_0x3721a8,_0x54c4cb=document['createElement']('div');_0x54c4cb[_0x5806c9(0x20a)]=_0x5806c9(0x209),_0x54c4cb[_0x5806c9(0x1e2)]=()=>openModal(_0x16b0ae,_0x3721a8);const _0x27bf59=document[_0x5806c9(0x226)](_0x5806c9(0x220));_0x27bf59[_0x5806c9(0x20a)]=_0x5806c9(0x1f1);const _0x13cd9f=document['createElement']('img');_0x13cd9f[_0x5806c9(0x1f2)]=_0x16b0ae,_0x13cd9f['alt']=_0x5806c9(0x225)+_0x3721a8,_0x13cd9f['className']=_0x5806c9(0x204),_0x13cd9f[_0x5806c9(0x1e6)]=_0x5806c9(0x1e7),_0x13cd9f[_0x5806c9(0x1fc)]=()=>{const _0x47b774=_0x5806c9;_0x27bf59[_0x47b774(0x1c7)][_0x47b774(0x214)](_0x47b774(0x1ed)),_0x13cd9f[_0x47b774(0x1c7)][_0x47b774(0x214)](_0x47b774(0x202)),_0x13cd9f[_0x47b774(0x1c7)][_0x47b774(0x1bc)]('opacity-100');};const _0x25782c='https://placehold.co/400x400/e2e8f0/64748b?text=Not+Found';_0x13cd9f[_0x5806c9(0x1f4)]=()=>{const _0x4179af=_0x5806c9;_0x13cd9f[_0x4179af(0x1f2)]=_0x25782c,_0x13cd9f[_0x4179af(0x1c7)]['add'](_0x4179af(0x1c1)),_0x27bf59[_0x4179af(0x1c7)]['remove'](_0x4179af(0x1ed)),_0x13cd9f[_0x4179af(0x1c7)]['remove'](_0x4179af(0x202)),_0x13cd9f['classList'][_0x4179af(0x1bc)]('opacity-100');};const _0x159ba6=document[_0x5806c9(0x226)](_0x5806c9(0x220));_0x159ba6['className']='p-3\x20text-center\x20bg-slate-50\x20dark:bg-slate-800\x20border-t\x20border-slate-200\x20dark:border-slate-700';const _0x32b974=document[_0x5806c9(0x226)]('p');_0x32b974['className']='font-mono\x20text-sm\x20text-slate-700\x20dark:text-slate-300\x20tracking-wider',_0x32b974['textContent']=_0x3721a8;const _0x1488e1=document[_0x5806c9(0x226)]('p');_0x1488e1['className']=_0x5806c9(0x1e4),_0x1488e1['textContent']=_0x5806c9(0x1db);const _0x5f4fd0=document[_0x5806c9(0x226)]('p');_0x5f4fd0[_0x5806c9(0x20a)]=_0x5806c9(0x1f8),_0x5f4fd0[_0x5806c9(0x222)]=_0x5806c9(0x1b9),_0x159ba6[_0x5806c9(0x212)](_0x32b974),_0x159ba6[_0x5806c9(0x212)](_0x1488e1),_0x159ba6[_0x5806c9(0x212)](_0x5f4fd0),_0x27bf59['appendChild'](_0x13cd9f),_0x54c4cb['appendChild'](_0x27bf59),_0x54c4cb['appendChild'](_0x159ba6),albumGrid[_0x5806c9(0x212)](_0x54c4cb),fetchMahasiswaByNim(_0x3721a8)[_0x5806c9(0x21c)](_0x225bee=>{const _0x3bfcb9=_0x5806c9;_0x225bee?(_0x1488e1[_0x3bfcb9(0x222)]=_0x3bfcb9(0x1b3)+(_0x225bee[_0x3bfcb9(0x1d5)]||_0x3bfcb9(0x1f3)),_0x5f4fd0[_0x3bfcb9(0x222)]='Prodi:\x20'+(_0x225bee[_0x3bfcb9(0x224)]||_0x3bfcb9(0x1f3)),_0x1488e1[_0x3bfcb9(0x1c7)]['remove'](_0x3bfcb9(0x21b)),_0x5f4fd0['classList'][_0x3bfcb9(0x214)](_0x3bfcb9(0x21b))):(_0x1488e1[_0x3bfcb9(0x222)]=_0x3bfcb9(0x1d3),_0x5f4fd0[_0x3bfcb9(0x222)]=_0x3bfcb9(0x1e9),_0x1488e1[_0x3bfcb9(0x1c7)][_0x3bfcb9(0x214)](_0x3bfcb9(0x21b)),_0x5f4fd0[_0x3bfcb9(0x1c7)]['remove']('skeleton-text'));});}async function loadImages(_0x158a26,_0x1b762b=![]){const _0x18b8d9=_0x66b9e2;loadingStatus['classList'][_0x18b8d9(0x214)](_0x18b8d9(0x1f9)),loadMoreBtn[_0x18b8d9(0x1c7)][_0x18b8d9(0x1bc)](_0x18b8d9(0x1f9));_0x1b762b&&(albumGrid[_0x18b8d9(0x1cc)]='',nimPrefix=pad(inputAngkatan[_0x18b8d9(0x1e0)],0x2)+pad(inputFakultas['value'],0x2)+pad(inputProdi[_0x18b8d9(0x1e0)],0x3),currentNimNumber=parseInt(inputNimStart[_0x18b8d9(0x1e0)],0xa));const _0x19c61d=currentNimNumber+_0x158a26;for(let _0x51e4de=currentNimNumber;_0x51e4de<_0x19c61d;_0x51e4de++){const _0x34e41f=nimPrefix+pad(_0x51e4de,0x3);createPhotoCard(_0x34e41f);}currentNimNumber=_0x19c61d,loadingStatus['classList'][_0x18b8d9(0x1bc)]('hidden'),loadMoreBtn['classList'][_0x18b8d9(0x214)]('hidden');}generateBtn[_0x66b9e2(0x207)]('click',()=>loadImages(parseInt(inputNimCount['value'],0xa),!![])),loadMoreBtn[_0x66b9e2(0x207)](_0x66b9e2(0x1da),()=>loadImages(parseInt(inputNimCount[_0x66b9e2(0x1e0)],0xa),![]));function _0x16bc(_0x20af55,_0x31a6e0){const _0x1cfb7b=_0x1cfb();return _0x16bc=function(_0x16bc51,_0x557039){_0x16bc51=_0x16bc51-0x1b1;let _0x2856ef=_0x1cfb7b[_0x16bc51];return _0x2856ef;},_0x16bc(_0x20af55,_0x31a6e0);}generateBtnHero&&generateBtnHero[_0x66b9e2(0x207)](_0x66b9e2(0x1da),()=>{const _0x15f218=_0x66b9e2;loadImages(parseInt(inputNimCount[_0x15f218(0x1e0)],0xa),!![]);const _0x1b076c=document[_0x15f218(0x1cd)](_0x15f218(0x1fa));if(_0x1b076c)_0x1b076c[_0x15f218(0x218)]({'behavior':'smooth','block':'start'});});function openModal(_0x20516,_0x269c8e){const _0x262632=_0x66b9e2;modalImg['src']=_0x262632(0x1c2),modalImg[_0x262632(0x1f2)]=_0x20516,modalNim['textContent']=_0x269c8e;const _0x23d696=mahasiswaCache['get'](_0x269c8e);_0x23d696?_0x23d696&&(modalNim[_0x262632(0x222)]=(_0x269c8e+_0x262632(0x1c9)+(_0x23d696[_0x262632(0x1d5)]||'')+'\x20—\x20'+(_0x23d696[_0x262632(0x224)]||''))['trim']()):fetchMahasiswaByNim(_0x269c8e)[_0x262632(0x21c)](_0x4bd1f0=>{const _0x1948a2=_0x262632;_0x4bd1f0&&(modalNim[_0x1948a2(0x222)]=(_0x269c8e+_0x1948a2(0x1c9)+(_0x4bd1f0[_0x1948a2(0x1d5)]||'')+_0x1948a2(0x1c9)+(_0x4bd1f0[_0x1948a2(0x224)]||''))[_0x1948a2(0x208)]());}),modal[_0x262632(0x1c7)][_0x262632(0x214)](_0x262632(0x1f9)),document[_0x262632(0x1b2)]['style'][_0x262632(0x1fb)]='hidden';}function closeModal(){const _0x255c8e=_0x66b9e2;modal[_0x255c8e(0x1c7)][_0x255c8e(0x1bc)](_0x255c8e(0x1f9)),document[_0x255c8e(0x1b2)][_0x255c8e(0x219)][_0x255c8e(0x1fb)]='';}window[_0x66b9e2(0x207)](_0x66b9e2(0x1c6),_0x4df91a=>{const _0xe39357=_0x66b9e2;_0x4df91a[_0xe39357(0x1ee)]===_0xe39357(0x1dc)&&!modal['classList']['contains']('hidden')&&closeModal();}),window[_0x66b9e2(0x1fc)]=()=>{const _0x5c015e=_0x66b9e2,_0x50f495=localStorage[_0x5c015e(0x1c3)](_0x5c015e(0x1ba))||(window[_0x5c015e(0x21e)](_0x5c015e(0x206))['matches']?_0x5c015e(0x201):_0x5c015e(0x223));applyTheme(_0x50f495),loadImages(parseInt(inputNimCount[_0x5c015e(0x1e0)],0xa),!![]);};
+// --- DOM Elements ---
+const generateBtn = document.getElementById('generate-btn');
+const loadMoreBtn = document.getElementById('load-more-btn');
+const albumGrid = document.getElementById('album-grid');
+const loadingStatus = document.getElementById('loading-status');
+const themeToggle = document.getElementById('theme-toggle');
+const modal = document.getElementById('image-modal');
+const modalImg = document.getElementById('modal-img');
+const modalNim = document.getElementById('modal-nim');
+const generateBtnHero = document.getElementById('generate-btn-hero');
+
+const inputAngkatan = document.getElementById('angkatan');
+const inputFakultas = document.getElementById('fakultas');
+const inputProdi = document.getElementById('prodi');
+const inputNimStart = document.getElementById('nim-start');
+const inputNimCount = document.getElementById('nim-count');
+const inputPddiktiKeyword = document.getElementById('pddikti-keyword');
+
+// --- State Variables ---
+let currentNimNumber = 1;
+let nimPrefix = '';
+const baseUrl = 'https://ais.unmul.ac.id/file/foto/';
+// PDDIKTI API (untuk mendapatkan nama dan prodi berdasarkan pencarian)
+const PDDIKTI_API = 'https://api-pddikti.ridwaanhall.com/search/mhs/';
+
+// Cache dan pembatasan konkuren untuk panggilan API
+const mahasiswaCache = new Map(); // key: NIM, value: { nama, nama_prodi, nama_pt, sinkatan_pt, id }
+const MAX_CONCURRENT = 4;
+let activeRequests = 0;
+const requestQueue = [];
+
+function runNext() {
+    if (activeRequests >= MAX_CONCURRENT) return;
+    const next = requestQueue.shift();
+    if (!next) return;
+    activeRequests++;
+    Promise.resolve()
+        .then(next.task)
+        .then((res) => next.resolve(res))
+        .catch((err) => next.reject(err))
+        .finally(() => {
+            activeRequests--;
+            runNext();
+        });
+}
+
+function enqueueTask(task) {
+    return new Promise((resolve, reject) => {
+        requestQueue.push({ task, resolve, reject });
+        runNext();
+    });
+}
+
+function withTimeout(promise, ms = 10000) {
+    const controller = new AbortController();
+    const id = setTimeout(() => controller.abort(), ms);
+    return {
+        exec: Promise.race([
+            promise(controller.signal),
+            new Promise((_, rej) =>
+                setTimeout(() => rej(new Error('Timeout')), ms)
+            ),
+        ]).finally(() => clearTimeout(id)),
+        controller,
+    };
+}
+
+async function searchMahasiswa(query, signal) {
+    const url = PDDIKTI_API + encodeURIComponent(query);
+    // Decide request URL: use Vercel proxy in production to avoid CORS, direct in local/dev
+    const __isProd = typeof location !== 'undefined' && /miez\.site$|vercel\.app$/i.test(location.hostname);
+    const __proxy = '/api?url=' + encodeURIComponent(url);
+    const __url = __isProd ? __proxy : url;
+
+    // Helper: fetch JSON directly
+    const fetchDirect = async () => {
+        const res = await fetch(__url, { headers: { 'Accept': 'application/json' }, signal });
+        if (!res.ok) throw new Error('Gagal memuat data PDDIKTI');
+        return res.json();
+    };
+
+    // Helper: fallback via AllOrigins raw endpoint (adds permissive CORS)
+    const fetchViaAllOrigins = async () => {
+        const proxyUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(url);
+        const res = await fetch(proxyUrl, { headers: { 'Accept': 'application/json' }, signal });
+        if (!res.ok) throw new Error('Gagal memuat data PDDIKTI (proxy)');
+        // Some proxies return text; attempt JSON parse
+        const text = await res.text();
+        try {
+            return JSON.parse(text);
+        } catch (err) {
+            // If response already JSON, try res.json as fallback
+            try {
+                return JSON.parse(String(text));
+            } catch {
+                throw new Error('Respon proxy tidak valid');
+            }
+        }
+    };
+
+    const normalize = (data) => {
+        // API bisa mengembalikan array langsung atau object { mahasiswa: [...] }
+        if (Array.isArray(data)) return data;
+        if (data && Array.isArray(data.mahasiswa)) return data.mahasiswa;
+        return [];
+    };
+
+    try {
+        const data = await fetchDirect();
+        const list = normalize(data);
+        console.debug('PDDIKTI direct', { query, count: list.length });
+        return list;
+    } catch (e) {
+        // Fallback to proxy if network fails or server closes connection
+        console.warn('PDDIKTI direct fetch gagal, mencoba via proxy:', e?.message || e);
+        try {
+            const data = await fetchViaAllOrigins();
+            const list = normalize(data);
+            console.debug('PDDIKTI proxy', { query, count: list.length });
+            return list;
+        } catch (proxyErr) {
+            console.error('PDDIKTI proxy fetch juga gagal:', proxyErr?.message || proxyErr);
+            return [];
+        }
+    }
+}
+
+async function fetchMahasiswaByNim(nim) {
+    // Cek cache
+    if (mahasiswaCache.has(nim)) return mahasiswaCache.get(nim);
+
+    // Jalankan pencarian dengan timeout dan concurrency limit
+    const task = async () => {
+        try {
+            const kw = (inputPddiktiKeyword?.value || '').trim();
+            const queries = [nim];
+            if (kw) queries.push(`${nim} ${kw}`);
+            // Fallback default keywords untuk UNMUL
+            queries.push(`${nim} universitas mulawarman`);
+            queries.push(`${nim} unmul`);
+
+            let list = [];
+            for (const q of queries) {
+                const { exec } = withTimeout((signal) => searchMahasiswa(q, signal), 10000);
+                const res = await exec;
+                if (Array.isArray(res) && res.length) {
+                    list = res;
+                    break;
+                }
+            }
+
+            // Cari yang NIM-nya exact match, kalau tidak ada ambil yang paling relevan (pertama)
+            const exact = list.find((m) => (m.nim || '').trim() === nim.trim());
+            const picked = exact || list[0] || null;
+            if (picked) {
+                const info = {
+                    id: picked.id,
+                    nama: picked.nama,
+                    nim: picked.nim,
+                    nama_pt: picked.nama_pt,
+                    sinkatan_pt: picked.sinkatan_pt, // catatan: ejaan field dari API
+                    nama_prodi: picked.nama_prodi,
+                };
+                mahasiswaCache.set(nim, info);
+                return info;
+            } else {
+                console.warn('Tidak ada hasil PDDIKTI untuk NIM:', nim);
+                mahasiswaCache.set(nim, null);
+                return null;
+            }
+        } catch (e) {
+            // Simpan ke cache sebagai null agar tidak retry terus-menerus
+            mahasiswaCache.set(nim, null);
+            return null;
+        }
+    };
+
+    return enqueueTask(task);
+}
+
+// --- Theme (Dark/Light Mode) Logic ---
+const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;
+const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
+
+const applyTheme = (theme) => {
+    const html = document.documentElement;
+    if (theme === 'dark') {
+        html.classList.add('dark');
+        themeToggle.innerHTML = sunIcon;
+        console.log('Dark mode activated'); // Debug
+    } else {
+        html.classList.remove('dark');
+        themeToggle.innerHTML = moonIcon;
+        console.log('Light mode activated'); // Debug
+    }
+};
+
+themeToggle.addEventListener('click', () => {
+    const html = document.documentElement;
+    const newTheme = html.classList.contains('dark') ? 'light' : 'dark';
+    localStorage.setItem('theme', newTheme);
+    applyTheme(newTheme);
+    console.log('Theme changed to:', newTheme); // Debug
+});
+
+// --- Image Generation Logic ---
+function pad(num, length) {
+    return num.toString().padStart(length, '0');
+}
+
+function createPhotoCard(nim) {
+    const imageUrl = baseUrl + nim;
+    const card = document.createElement('div');
+    // Menambahkan class-class yang mendukung dark mode secara konsisten
+    card.className = 'bg-white dark:bg-slate-800 rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-2 cursor-pointer border border-slate-200 dark:border-slate-700 image-card-hover';
+    card.onclick = () => openModal(imageUrl, nim);
+    
+    const imageContainer = document.createElement('div');
+    imageContainer.className = 'w-full aspect-square bg-slate-100 dark:bg-slate-700 flex items-center justify-center skeleton';
+
+    const img = document.createElement('img');
+    img.src = imageUrl;
+    img.alt = `Foto Mahasiswa ${nim}`;
+    img.className = 'w-full h-full object-cover opacity-0 transition-opacity duration-300';
+    img.loading = 'lazy';
+
+    img.onload = () => {
+        imageContainer.classList.remove('skeleton');
+        img.classList.remove('opacity-0');
+        img.classList.add('opacity-100');
+    };
+
+    const placeholderUrl = `https://placehold.co/400x400/e2e8f0/64748b?text=Not+Found`;
+    img.onerror = () => { 
+        img.src = placeholderUrl; 
+        img.classList.add('opacity-50'); // Membuat placeholder sedikit redup
+        imageContainer.classList.remove('skeleton');
+        img.classList.remove('opacity-0');
+        img.classList.add('opacity-100');
+    };
+
+    const info = document.createElement('div');
+    info.className = 'p-3 text-center bg-slate-50 dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700';
+    // Elemen teks terpisah agar mudah diperbarui setelah fetch API
+    const nimEl = document.createElement('p');
+    nimEl.className = 'font-mono text-sm text-slate-700 dark:text-slate-300 tracking-wider';
+    nimEl.textContent = nim;
+
+    const namaEl = document.createElement('p');
+    namaEl.className = 'text-sm text-slate-600 dark:text-slate-300 mt-1 skeleton-text px-8 py-1 inline-block';
+    namaEl.textContent = 'Nama: memuat…';
+
+    const prodiEl = document.createElement('p');
+    prodiEl.className = 'text-xs text-slate-500 dark:text-slate-400 skeleton-text px-6 py-1 inline-block mt-1';
+    prodiEl.textContent = 'Prodi: memuat…';
+
+    info.appendChild(nimEl);
+    info.appendChild(namaEl);
+    info.appendChild(prodiEl);
+    
+    imageContainer.appendChild(img);
+    card.appendChild(imageContainer);
+    card.appendChild(info);
+    
+    albumGrid.appendChild(card);
+
+    // Ambil data nama & prodi dari API berdasarkan NIM
+    fetchMahasiswaByNim(nim).then((mhs) => {
+        if (mhs) {
+            namaEl.textContent = `Nama: ${mhs.nama || 'Tidak tersedia'}`;
+            prodiEl.textContent = `Prodi: ${mhs.nama_prodi || 'Tidak tersedia'}`;
+            namaEl.classList.remove('skeleton-text');
+            prodiEl.classList.remove('skeleton-text');
+        } else {
+            namaEl.textContent = 'Nama: Tidak tersedia';
+            prodiEl.textContent = 'Prodi: Tidak tersedia';
+            namaEl.classList.remove('skeleton-text');
+            prodiEl.classList.remove('skeleton-text');
+        }
+    });
+}
+
+async function loadImages(count, isInitialLoad = false) {
+    loadingStatus.classList.remove('hidden');
+    loadMoreBtn.classList.add('hidden');
+
+    if (isInitialLoad) {
+        albumGrid.innerHTML = '';
+        nimPrefix = pad(inputAngkatan.value, 2) + pad(inputFakultas.value, 2) + pad(inputProdi.value, 3);
+        currentNimNumber = parseInt(inputNimStart.value, 10);
+    }
+
+    const nimEnd = currentNimNumber + count;
+    for (let i = currentNimNumber; i < nimEnd; i++) {
+        const nimLengkap = nimPrefix + pad(i, 3);
+        createPhotoCard(nimLengkap);
+    }
+    currentNimNumber = nimEnd;
+
+    loadingStatus.classList.add('hidden');
+    loadMoreBtn.classList.remove('hidden');
+}
+
+generateBtn.addEventListener('click', () => loadImages(parseInt(inputNimCount.value, 10), true));
+loadMoreBtn.addEventListener('click', () => loadImages(parseInt(inputNimCount.value, 10), false));
+
+// Hero button trigger (opsional)
+if (generateBtnHero) {
+    generateBtnHero.addEventListener('click', () => {
+        loadImages(parseInt(inputNimCount.value, 10), true);
+        // Smooth scroll ke galeri
+        const target = document.getElementById('album-grid');
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+}
+
+// --- Modal Logic ---
+function openModal(imageUrl, nim) {
+    modalImg.src = 'https://placehold.co/400x400/e2e8f0/4a5568?text=Memuat...'; // Placeholder
+    modalImg.src = imageUrl; // Actual image
+    modalNim.textContent = nim;
+    // Perkaya informasi pada modal jika data tersedia atau coba ambil
+    const cached = mahasiswaCache.get(nim);
+    if (cached) {
+        if (cached) {
+            modalNim.textContent = `${nim} — ${cached.nama || ''} — ${cached.nama_prodi || ''}`.trim();
+        }
+    } else {
+        fetchMahasiswaByNim(nim).then((mhs) => {
+            if (mhs) {
+                modalNim.textContent = `${nim} — ${mhs.nama || ''} — ${mhs.nama_prodi || ''}`.trim();
+            }
+        });
+    }
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+}
+
+function closeModal() {
+    modal.classList.add('hidden');
+    document.body.style.overflow = '';
+}
+
+// Close modal with Escape key
+window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+        closeModal();
+    }
+});
+
+// --- Initial Load ---
+window.onload = () => {
+    // Initialize theme
+    const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    applyTheme(savedTheme);
+    
+    // Initial image generation
+    loadImages(parseInt(inputNimCount.value, 10), true);
+};
