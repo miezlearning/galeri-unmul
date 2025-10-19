@@ -8,9 +8,23 @@
   const originalFetch = window.fetch.bind(window);
   window.fetch = function(input, init) {
     try {
-      const url = typeof input === 'string' ? input : (input && input.url) ? input.url : '';
-      if (typeof url === 'string' && url.startsWith('https://api-pddikti.ridwaanhall.com/')) {
-        const proxied = PROXY_BASE + encodeURIComponent(url);
+      const raw = typeof input === 'string' ? input : (input && input.url) ? input.url : '';
+      const url = new URL(raw, window.location.origin);
+      // If code tries to call relative /api/pddikti-proxy, rewrite to absolute Vercel proxy
+      if (url.pathname.startsWith('/api/pddikti-proxy')) {
+        const target = url.searchParams.get('url') || '';
+        const proxied = PROXY_BASE + encodeURIComponent(target);
+        return originalFetch(proxied, init);
+      }
+      // If code tries to call PDDIKTI API directly, rewrite to proxy
+      if (url.href.startsWith('https://api-pddikti.ridwaanhall.com/')) {
+        const proxied = PROXY_BASE + encodeURIComponent(url.href);
+        return originalFetch(proxied, init);
+      }
+      // If any code tries to route via AllOrigins, rewrite it to our Vercel proxy instead
+      if (url.href.startsWith('https://api.allorigins.win/raw')) {
+        const target = url.searchParams.get('url') || '';
+        const proxied = PROXY_BASE + encodeURIComponent(target);
         return originalFetch(proxied, init);
       }
     } catch {}
@@ -30,15 +44,7 @@
     return res.json();
   }
 
-  async function viaAllOrigins(url, signal){
-    const raw = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(url);
-    const res = await fetch(raw, { headers: { 'Accept': 'application/json' }, signal });
-    if (!res.ok) throw new Error('AllOrigins fetch failed: ' + res.status);
-    const text = await res.text();
-    try { return JSON.parse(text); } catch {
-      try { return JSON.parse(String(text)); } catch { throw new Error('Invalid proxy response'); }
-    }
-  }
+  // We intentionally avoid AllOrigins and rely solely on our Vercel proxy for CORS-safe requests.
 
   // 2) Also expose a replacement for searchMahasiswa used elsewhere, to be safe
   window.searchMahasiswa = async function(query, signal){
@@ -49,16 +55,8 @@
       console.debug('PDDIKTI via vercel proxy', { query, count: list.length });
       return list;
     } catch (e) {
-      console.warn('Vercel proxy failed, trying AllOrigins fallback:', e?.message || e);
-      try {
-        const data = await viaAllOrigins(url, signal);
-        const list = normalize(data);
-        console.debug('PDDIKTI via AllOrigins', { query, count: list.length });
-        return list;
-      } catch (e2) {
-        console.error('AllOrigins fallback failed:', e2?.message || e2);
-        return [];
-      }
+      console.error('Vercel proxy failed:', e?.message || e);
+      return [];
     }
   }
 })();
