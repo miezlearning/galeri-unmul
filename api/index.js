@@ -1,1 +1,45 @@
-function _0x28a2(_0x35c530,_0x4a3af6){const _0x557961=_0x5579();return _0x28a2=function(_0x28a2a0,_0x3c46c9){_0x28a2a0=_0x28a2a0-0x140;let _0x418e81=_0x557961[_0x28a2a0];return _0x418e81;},_0x28a2(_0x35c530,_0x4a3af6);}function _0x5579(){const _0x5d814e=['headers','method','31KUyTRn','139722aqLrQn','86400','Upstream\x20fetch\x20failed','Access-Control-Allow-Origin','GET','GET,HEAD,OPTIONS','json','3060MlKxji','status','Missing\x20url\x20param','3673448HvJZXa','end','1481390rvsoNT','110HzycfU','539HNTztx','9NnQAnn','content-type','Content-Type','13158YqMHtW','90907488ZrmGwm','application/json;\x20charset=utf-8','setHeader','11865wWKKkw','5439183ONWvEU','public,\x20max-age=300','OPTIONS','message','Access-Control-Max-Age'];_0x5579=function(){return _0x5d814e;};return _0x5579();}(function(_0x1b5fd7,_0x360793){const _0x3926f0=_0x28a2,_0x20215e=_0x1b5fd7();while(!![]){try{const _0x4b3718=parseInt(_0x3926f0(0x157))/0x1*(-parseInt(_0x3926f0(0x14b))/0x2)+-parseInt(_0x3926f0(0x150))/0x3+-parseInt(_0x3926f0(0x140))/0x4*(parseInt(_0x3926f0(0x14f))/0x5)+parseInt(_0x3926f0(0x158))/0x6*(-parseInt(_0x3926f0(0x147))/0x7)+-parseInt(_0x3926f0(0x143))/0x8*(-parseInt(_0x3926f0(0x148))/0x9)+-parseInt(_0x3926f0(0x145))/0xa*(parseInt(_0x3926f0(0x146))/0xb)+parseInt(_0x3926f0(0x14c))/0xc;if(_0x4b3718===_0x360793)break;else _0x20215e['push'](_0x20215e['shift']());}catch(_0x141a22){_0x20215e['push'](_0x20215e['shift']());}}}(_0x5579,0xe28d9));export default async function handler(_0x16074b,_0x2f03b9){const _0x341d70=_0x28a2;if(_0x16074b[_0x341d70(0x156)]===_0x341d70(0x152))return _0x2f03b9[_0x341d70(0x14e)](_0x341d70(0x15b),'*'),_0x2f03b9[_0x341d70(0x14e)]('Access-Control-Allow-Methods',_0x341d70(0x15d)),_0x2f03b9[_0x341d70(0x14e)]('Access-Control-Allow-Headers',_0x341d70(0x14a)),_0x2f03b9[_0x341d70(0x14e)](_0x341d70(0x154),_0x341d70(0x159)),_0x2f03b9[_0x341d70(0x141)](0xcc)[_0x341d70(0x144)]();const {url:_0x4c25ae}=_0x16074b['query'];if(!_0x4c25ae)return _0x2f03b9[_0x341d70(0x14e)](_0x341d70(0x15b),'*'),_0x2f03b9[_0x341d70(0x141)](0x190)[_0x341d70(0x15e)]({'error':_0x341d70(0x142)});let _0x581cbc=_0x4c25ae;try{const _0x3651a1=decodeURIComponent(_0x581cbc),_0x4f3bf7=decodeURIComponent(_0x3651a1);_0x581cbc=_0x4f3bf7;}catch(_0x23abef){try{_0x581cbc=decodeURIComponent(_0x581cbc);}catch(_0x180238){}}try{const _0x4d755c=await fetch(_0x581cbc,{'method':_0x341d70(0x15c)}),_0x2ad1f5=Buffer['from'](await _0x4d755c['arrayBuffer']());_0x2f03b9[_0x341d70(0x14e)]('Access-Control-Allow-Origin','*'),_0x2f03b9['setHeader']('Cache-Control',_0x341d70(0x151));const _0x3ee30b=_0x4d755c[_0x341d70(0x155)]['get'](_0x341d70(0x149))||_0x341d70(0x14d);return _0x2f03b9[_0x341d70(0x14e)](_0x341d70(0x14a),_0x3ee30b),_0x2f03b9[_0x341d70(0x141)](_0x4d755c[_0x341d70(0x141)])['send'](_0x2ad1f5);}catch(_0x55354d){return _0x2f03b9[_0x341d70(0x14e)](_0x341d70(0x15b),'*'),_0x2f03b9['status'](0x1f6)['json']({'error':_0x341d70(0x15a),'detail':String(_0x55354d?.[_0x341d70(0x153)]||_0x55354d)});}}
+export default async function handler(req, res) {
+  // Handle CORS preflight
+  if (req.method === 'OPTIONS') {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Max-Age', '86400');
+    return res.status(204).end();
+  }
+
+  const { url } = req.query;
+  if (!url) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    return res.status(400).json({ error: 'Missing url param' });
+  }
+
+  // Safely decode url (handle single/double-encoded cases)
+  let target = url;
+  try {
+    const once = decodeURIComponent(target);
+    // If double-encoded, decoding again may change it; try twice safely
+    const twice = decodeURIComponent(once);
+    target = twice;
+  } catch (_) {
+    try {
+      target = decodeURIComponent(target);
+    } catch (_) {
+      // keep original
+    }
+  }
+
+  try {
+    const upstream = await fetch(target, { method: 'GET' });
+    const buf = Buffer.from(await upstream.arrayBuffer());
+
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Cache-Control', 'public, max-age=300');
+    const contentType = upstream.headers.get('content-type') || 'application/json; charset=utf-8';
+    res.setHeader('Content-Type', contentType);
+    return res.status(upstream.status).send(buf);
+  } catch (err) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    return res.status(502).json({ error: 'Upstream fetch failed', detail: String(err?.message || err) });
+  }
+}

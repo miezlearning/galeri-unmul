@@ -1,1 +1,68 @@
-function _0x2161(_0x9b052a,_0x46ec1d){const _0x299fff=_0x299f();return _0x2161=function(_0x2161d7,_0x5ac9dd){_0x2161d7=_0x2161d7-0xf1;let _0x2db5f4=_0x299fff[_0x2161d7];return _0x2db5f4;},_0x2161(_0x9b052a,_0x46ec1d);}(function(_0x339fa5,_0x57c2a8){const _0x1db014=_0x2161,_0x59a0f1=_0x339fa5();while(!![]){try{const _0x571448=parseInt(_0x1db014(0x107))/0x1*(-parseInt(_0x1db014(0xfa))/0x2)+-parseInt(_0x1db014(0xf9))/0x3*(-parseInt(_0x1db014(0x108))/0x4)+-parseInt(_0x1db014(0x114))/0x5*(parseInt(_0x1db014(0xf8))/0x6)+-parseInt(_0x1db014(0x116))/0x7*(-parseInt(_0x1db014(0xf3))/0x8)+parseInt(_0x1db014(0xf2))/0x9*(-parseInt(_0x1db014(0xfe))/0xa)+-parseInt(_0x1db014(0x115))/0xb+parseInt(_0x1db014(0xf1))/0xc*(parseInt(_0x1db014(0x103))/0xd);if(_0x571448===_0x57c2a8)break;else _0x59a0f1['push'](_0x59a0f1['shift']());}catch(_0x33eb36){_0x59a0f1['push'](_0x59a0f1['shift']());}}}(_0x299f,0xda43f),(function(){const _0x35f044=_0x2161,_0x28442d=_0x35f044(0x117),_0x30307e='https://galeri-unmul.vercel.app',_0x5420d6=_0x30307e+_0x35f044(0x100),_0x42c9eb=window['fetch'][_0x35f044(0x10d)](window);window[_0x35f044(0x110)]=function(_0x1dc5b7,_0x1a104c){const _0xca8266=_0x35f044;try{const _0x43b032=typeof _0x1dc5b7==='string'?_0x1dc5b7:_0x1dc5b7&&_0x1dc5b7[_0xca8266(0x102)]?_0x1dc5b7[_0xca8266(0x102)]:'',_0x380d49=new URL(_0x43b032,window['location'][_0xca8266(0x101)]);if(_0x380d49[_0xca8266(0x109)][_0xca8266(0xf7)](_0xca8266(0x111))){const _0x14287f=_0x380d49[_0xca8266(0x113)][_0xca8266(0xf6)]('url')||'',_0x4442a7=_0x5420d6+encodeURIComponent(_0x14287f);return _0x42c9eb(_0x4442a7,_0x1a104c);}if(_0x380d49['pathname']===_0xca8266(0xf5)||_0x380d49[_0xca8266(0x109)][_0xca8266(0xf7)](_0xca8266(0x112))){const _0x58653f=_0x30307e+_0x380d49[_0xca8266(0x109)]+(_0x380d49[_0xca8266(0x10b)]||'');return _0x42c9eb(_0x58653f,_0x1a104c);}if(_0x380d49[_0xca8266(0x106)][_0xca8266(0xf7)]('https://api-pddikti.ridwaanhall.com/')){const _0x24263b=_0x5420d6+encodeURIComponent(_0x380d49['href']);return _0x42c9eb(_0x24263b,_0x1a104c);}if(_0x380d49[_0xca8266(0x106)][_0xca8266(0xf7)](_0xca8266(0xfb))){const _0x138f25=_0x380d49[_0xca8266(0x113)][_0xca8266(0xf6)](_0xca8266(0x102))||'',_0x12ada9=_0x5420d6+encodeURIComponent(_0x138f25);return _0x42c9eb(_0x12ada9,_0x1a104c);}}catch{}return _0x42c9eb(_0x1dc5b7,_0x1a104c);};function _0x5ffd2f(_0x39c506){const _0x4eb7e9=_0x35f044;if(Array['isArray'](_0x39c506))return _0x39c506;if(_0x39c506&&Array[_0x4eb7e9(0x10c)](_0x39c506[_0x4eb7e9(0x10a)]))return _0x39c506[_0x4eb7e9(0x10a)];return[];}async function _0x49961b(_0x1c780f,_0x1a3fef){const _0x8c5d60=_0x35f044,_0x37df4f=_0x5420d6+encodeURIComponent(_0x1c780f),_0x4fbb25=await fetch(_0x37df4f,{'headers':{'Accept':'application/json'},'signal':_0x1a3fef});if(!_0x4fbb25['ok'])throw new Error(_0x8c5d60(0x10f)+_0x4fbb25[_0x8c5d60(0x10e)]);return _0x4fbb25['json']();}window[_0x35f044(0x105)]=async function(_0x469c76,_0x38c426){const _0x3514bd=_0x35f044,_0x1c5288=_0x28442d+encodeURIComponent(_0x469c76);try{const _0x103894=await _0x49961b(_0x1c5288,_0x38c426),_0x40bfbf=_0x5ffd2f(_0x103894);return console[_0x3514bd(0xf4)](_0x3514bd(0xfd),{'query':_0x469c76,'count':_0x40bfbf[_0x3514bd(0xfc)]}),_0x40bfbf;}catch(_0x424f20){return console[_0x3514bd(0xff)](_0x3514bd(0x104),_0x424f20?.['message']||_0x424f20),[];}};}()));function _0x299f(){const _0x49604b=['/api','get','startsWith','9868692DCtYCU','339MRxRlp','368lToroU','https://api.allorigins.win/raw','length','PDDIKTI\x20via\x20vercel\x20proxy','16310QbmXdc','error','/api?url=','origin','url','247uisvMJ','Vercel\x20proxy\x20failed:','searchMahasiswa','href','7581ADhTKM','12340LDRlFm','pathname','mahasiswa','search','isArray','bind','status','Proxy\x20fetch\x20failed:\x20','fetch','/api/pddikti-proxy','/api/','searchParams','5mqlZvN','19364213hAEjAq','478184SiTiyk','https://api-pddikti.ridwaanhall.com/search/mhs/','3357840dqieBu','3987ylrPRo','88GaGzvg','debug'];_0x299f=function(){return _0x49604b;};return _0x299f();}
+// Force PDDIKTI fetches to go through Vercel Serverless proxy, even when hosted on GitHub Pages
+// This overrides the globally-defined searchMahasiswa used elsewhere.
+(function(){
+  const API_BASE = 'https://api-pddikti.ridwaanhall.com/search/mhs/';
+  const VERCEL_HOST = 'https://galeri-unmul.vercel.app';
+  const PROXY_BASE = VERCEL_HOST + '/api?url=';
+
+  // 1) Wrap window.fetch to transparently reroute PDDIKTI calls via Vercel proxy
+  const originalFetch = window.fetch.bind(window);
+  window.fetch = function(input, init) {
+    try {
+      const raw = typeof input === 'string' ? input : (input && input.url) ? input.url : '';
+      const url = new URL(raw, window.location.origin);
+      // Backward-compat: If code tries to call legacy /api/pddikti-proxy, rewrite to new /api route on Vercel
+      if (url.pathname.startsWith('/api/pddikti-proxy')) {
+        const target = url.searchParams.get('url') || '';
+        const proxied = PROXY_BASE + encodeURIComponent(target);
+        return originalFetch(proxied, init);
+      }
+      // If code tries to call relative /api (old or new), rewrite to absolute Vercel domain
+      if (url.pathname === '/api' || url.pathname.startsWith('/api/')) {
+        const absolute = VERCEL_HOST + url.pathname + (url.search || '');
+        return originalFetch(absolute, init);
+      }
+      // If code tries to call PDDIKTI API directly, rewrite to proxy
+      if (url.href.startsWith('https://api-pddikti.ridwaanhall.com/')) {
+        const proxied = PROXY_BASE + encodeURIComponent(url.href);
+        return originalFetch(proxied, init);
+      }
+      // If any code tries to route via AllOrigins, rewrite it to our Vercel proxy instead
+      if (url.href.startsWith('https://api.allorigins.win/raw')) {
+        const target = url.searchParams.get('url') || '';
+        const proxied = PROXY_BASE + encodeURIComponent(target);
+        return originalFetch(proxied, init);
+      }
+    } catch {}
+    return originalFetch(input, init);
+  };
+
+  function normalize(data){
+    if (Array.isArray(data)) return data;
+    if (data && Array.isArray(data.mahasiswa)) return data.mahasiswa;
+    return [];
+  }
+
+  async function viaVercelProxy(url, signal){
+    const proxied = PROXY_BASE + encodeURIComponent(url);
+    const res = await fetch(proxied, { headers: { 'Accept': 'application/json' }, signal });
+    if (!res.ok) throw new Error('Proxy fetch failed: ' + res.status);
+    return res.json();
+  }
+
+  // We intentionally avoid AllOrigins and rely solely on our Vercel proxy for CORS-safe requests.
+
+  // 2) Also expose a replacement for searchMahasiswa used elsewhere, to be safe
+  window.searchMahasiswa = async function(query, signal){
+    const url = API_BASE + encodeURIComponent(query);
+    try {
+      const data = await viaVercelProxy(url, signal);
+      const list = normalize(data);
+      console.debug('PDDIKTI via vercel proxy', { query, count: list.length });
+      return list;
+    } catch (e) {
+      console.error('Vercel proxy failed:', e?.message || e);
+      return [];
+    }
+  }
+})();

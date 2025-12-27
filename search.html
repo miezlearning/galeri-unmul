@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cari Mahasiswa - Galeri Foto Unmul</title>
+    <meta name="description"
+        content="Cari data mahasiswa Indonesia berdasarkan nama, NIM, universitas, atau program studi menggunakan API PDDIKTI.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'poppins': ['Poppins', 'sans-serif'],
+                        'jakarta': ['"Plus Jakarta Sans"', 'Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Fonts: Inter (fallback) + Plus Jakarta Sans (utama) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+
+    <style>
+        /* Tambahan style untuk halaman pencarian */
+        .bg-unmul-gradient {
+            background: linear-gradient(to right, #004aad, #007ee5);
+        }
+
+        .dark .bg-unmul-gradient {
+            background: linear-gradient(to right, #1e40af, #3b82f6);
+        }
+
+        .text-unmul-blue {
+            color: #004aad;
+        }
+
+        .dark .text-unmul-blue {
+            color: #93c5fd !important;
+        }
+
+        * {
+            transition-property: background-color, border-color, color, fill, stroke;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 300ms;
+        }
+
+        /* Search input glow effect */
+        .search-input:focus {
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.3);
+        }
+
+        .dark .search-input:focus {
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+        }
+
+        /* Result card animation */
+        .result-card {
+            animation: fadeInUp 0.4s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Staggered animation delay */
+        .result-card:nth-child(1) {
+            animation-delay: 0.05s;
+        }
+
+        .result-card:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .result-card:nth-child(3) {
+            animation-delay: 0.15s;
+        }
+
+        .result-card:nth-child(4) {
+            animation-delay: 0.2s;
+        }
+
+        .result-card:nth-child(5) {
+            animation-delay: 0.25s;
+        }
+
+        .result-card:nth-child(6) {
+            animation-delay: 0.3s;
+        }
+
+        .result-card:nth-child(7) {
+            animation-delay: 0.35s;
+        }
+
+        .result-card:nth-child(8) {
+            animation-delay: 0.4s;
+        }
+
+        .result-card:nth-child(9) {
+            animation-delay: 0.45s;
+        }
+
+        .result-card:nth-child(10) {
+            animation-delay: 0.5s;
+        }
+
+        /* Pulse animation for loading icon */
+        .search-loading {
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        /* Glassmorphism card */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .dark .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+        }
+
+        /* Gradient text */
+        .gradient-text {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Avatar placeholder gradient */
+        .avatar-gradient {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 transition-colors duration-300 font-jakarta min-h-screen">
+
+    <!-- Header -->
+    <header
+        class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm sticky top-0 z-50 shadow-sm border-b border-slate-200 dark:border-slate-700">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-3.5">
+                <div class="flex items-center space-x-3">
+                    <!-- Logo Unmul -->
+                    <img src="https://upload.wikimedia.org/wikipedia/id/thumb/8/83/Unmul_logo_low.svg/50px-Unmul_logo_low.svg.png"
+                        alt="Logo Unmul" class="h-9 w-auto">
+                    <!-- Judul -->
+                    <h1 class="text-xl sm:text-2xl font-bold text-unmul-blue dark:text-white font-jakarta">Cari
+                        Mahasiswa</h1>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <!-- Tombol Kembali ke Galeri -->
+                    <a href="index.html"
+                        class="p-2 px-4 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors text-sm font-medium flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                        <span class="hidden sm:inline">Kembali</span>
+                    </a>
+                    <!-- Tombol Theme Toggle -->
+                    <button id="theme-toggle"
+                        class="p-2 rounded-full text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                        <!-- Ikon akan diisi oleh JS -->
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-4 sm:p-6 lg:p-8">
+
+        <!-- Hero Search Section -->
+        <section class="relative overflow-hidden rounded-3xl mb-10">
+            <div
+                class="absolute inset-0 bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 opacity-90 dark:opacity-80">
+            </div>
+            <!-- Decorative elements -->
+            <svg class="absolute -right-20 -top-20 h-72 w-72 text-white/10" viewBox="0 0 200 200"
+                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path fill="currentColor"
+                    d="M47.5,-57.2C59.9,-46.7,67.5,-30.8,71.2,-13.6C74.9,3.6,74.7,22.1,66.6,36.5C58.5,50.9,42.5,61.2,25.3,67.4C8.1,73.6,-10.3,75.6,-27.8,70.5C-45.3,65.3,-61.9,53,-71.1,36.8C-80.3,20.5,-82.1,0.3,-76.5,-17.1C-70.9,-34.5,-57.9,-49.1,-43,-58.2C-28.1,-67.3,-11.3,-70.9,3.4,-75.1C18.1,-79.3,35.1,-67.8,47.5,-57.2Z"
+                    transform="translate(100 100)" />
+            </svg>
+            <svg class="absolute -left-10 -bottom-10 h-56 w-56 text-white/10" viewBox="0 0 200 200"
+                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path fill="currentColor"
+                    d="M39.5,-48.6C52.9,-39.5,66.8,-29.4,72.3,-15.6C77.8,-1.8,74.9,15.7,66.4,29.4C57.9,43.1,43.8,53,28.5,58.8C13.2,64.6,-3.3,66.3,-19.4,62.6C-35.5,58.9,-51.2,49.8,-60.6,36.3C-70,22.8,-73.1,4.9,-69.1,-10.8C-65.1,-26.5,-54,-40,-41,-49.3C-28,-58.6,-13.1,-63.7,0.5,-64.3C14.1,-64.9,26.1,-57.8,39.5,-48.6Z"
+                    transform="translate(100 100)" />
+            </svg>
+
+            <div class="relative p-8 sm:p-12 lg:p-16 text-center">
+                <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-4 py-1.5 mb-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    <span class="text-white/90 text-sm font-medium">Pencarian Data Mahasiswa</span>
+                </div>
+
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight font-jakarta mb-4">
+                    Cari Mahasiswa Indonesia
+                </h2>
+                <p class="text-white/80 text-base sm:text-lg max-w-2xl mx-auto mb-8">
+                    Temukan informasi mahasiswa dari berbagai universitas di Indonesia. Cukup masukkan nama, NIM, atau
+                    kata kunci lainnya.
+                </p>
+
+                <!-- Search Box -->
+                <div class="max-w-2xl mx-auto">
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                            <svg id="search-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400"
+                                fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                            <!-- Loading icon (hidden by default) -->
+                            <svg id="loading-icon" class="hidden h-5 w-5 text-blue-500 search-loading"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                    stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor"
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                </path>
+                            </svg>
+                        </div>
+                        <input type="text" id="search-input"
+                            placeholder="Cari berdasarkan nama, NIM, universitas, atau prodi..."
+                            class="search-input w-full pl-14 pr-32 py-4 sm:py-5 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 rounded-2xl border-0 focus:outline-none text-base sm:text-lg shadow-xl transition-all duration-300">
+                        <button id="search-btn"
+                            class="absolute right-2 top-1/2 -translate-y-1/2 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white font-semibold py-2.5 sm:py-3 px-5 sm:px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2">
+                            <span class="hidden sm:inline">Cari</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                            </svg>
+                        </button>
+                    </div>
+                    <p class="mt-3 text-white/60 text-sm">
+                        Contoh: "farrel sirah informatika unmul", "UGM Teknik Sipil", dll.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Search Stats -->
+        <div id="search-stats" class="hidden mb-6">
+            <div class="flex items-center justify-between flex-wrap gap-4">
+                <div class="flex items-center gap-3">
+                    <div
+                        class="h-10 w-10 rounded-xl bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center shadow-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">Hasil ditemukan</p>
+                        <p class="text-xl font-bold text-slate-800 dark:text-white"><span id="result-count">0</span>
+                            mahasiswa</p>
+                    </div>
+                </div>
+                <span id="search-query-display"
+                    class="text-sm text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-4 py-2 rounded-lg"></span>
+            </div>
+        </div>
+
+        <!-- Results Grid -->
+        <div id="results-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+            <!-- Results will be inserted here by JavaScript -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="empty-state" class="text-center py-16">
+            <div
+                class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-slate-100 dark:bg-slate-800 mb-6">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-slate-400 dark:text-slate-500" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-slate-700 dark:text-slate-300 mb-2">Mulai Pencarian</h3>
+            <p class="text-slate-500 dark:text-slate-400 max-w-md mx-auto">
+                Masukkan kata kunci untuk mencari data mahasiswa. Anda bisa mencari berdasarkan nama, NIM, nama
+                universitas, atau program studi.
+            </p>
+        </div>
+
+        <!-- No Results State -->
+        <div id="no-results" class="hidden text-center py-16">
+            <div
+                class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-amber-100 dark:bg-amber-900/30 mb-6">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-amber-500 dark:text-amber-400" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-slate-700 dark:text-slate-300 mb-2">Tidak Ada Hasil</h3>
+            <p class="text-slate-500 dark:text-slate-400 max-w-md mx-auto">
+                Tidak ditemukan data mahasiswa untuk kata kunci yang dicari. Coba gunakan kata kunci yang berbeda.
+            </p>
+        </div>
+
+        <!-- Error State -->
+        <div id="error-state" class="hidden text-center py-16">
+            <div
+                class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-red-100 dark:bg-red-900/30 mb-6">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-red-500 dark:text-red-400" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-slate-700 dark:text-slate-300 mb-2">Terjadi Kesalahan</h3>
+            <p id="error-message" class="text-slate-500 dark:text-slate-400 max-w-md mx-auto">
+                Gagal memuat data. Silakan coba lagi nanti.
+            </p>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-16 py-8 border-t border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-800/50">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-sm text-slate-500 dark:text-slate-400">
+                Data bersumber dari <a href="https://api.ryzumi.vip" target="_blank"
+                    class="text-blue-500 hover:underline">API Ryzumi</a> •
+                <a href="index.html" class="text-blue-500 hover:underline">Kembali ke Galeri</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Modal untuk Detail Mahasiswa -->
+    <div id="detail-modal"
+        class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 transition-opacity duration-300 ease-in-out bg-black/80 dark:bg-slate-900/90"
+        onclick="closeDetailModal()">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl max-w-lg w-full max-h-[90vh] flex flex-col overflow-hidden border border-slate-300 dark:border-slate-700"
+            onclick="event.stopPropagation()">
+            <div class="flex justify-center items-center bg-gradient-to-br from-violet-600 to-indigo-600 p-8">
+                <div
+                    class="w-32 h-32 rounded-full bg-white/20 flex items-center justify-center overflow-hidden border-4 border-white/30">
+                    <img id="modal-photo" src="" alt="Foto Mahasiswa" class="w-full h-full object-cover hidden">
+                    <span id="modal-avatar" class="text-5xl font-bold text-white"></span>
+                </div>
+            </div>
+            <div class="p-6 text-center">
+                <h3 id="modal-nama" class="text-xl font-bold text-slate-800 dark:text-white mb-2"></h3>
+                <p id="modal-nim" class="text-sm font-mono text-slate-500 dark:text-slate-400 mb-4"></p>
+                <div class="space-y-3 text-left">
+                    <div class="flex items-start gap-3 p-3 bg-slate-50 dark:bg-slate-700/50 rounded-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-violet-500 mt-0.5 flex-shrink-0"
+                            fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                        </svg>
+                        <div>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wide">Universitas
+                            </p>
+                            <p id="modal-pt" class="text-sm font-medium text-slate-700 dark:text-slate-200"></p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 p-3 bg-slate-50 dark:bg-slate-700/50 rounded-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-500 mt-0.5 flex-shrink-0"
+                            fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                        </svg>
+                        <div>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wide">Program Studi
+                            </p>
+                            <p id="modal-prodi" class="text-sm font-medium text-slate-700 dark:text-slate-200"></p>
+                        </div>
+                    </div>
+                </div>
+                <a id="modal-pddikti-link" href="#" target="_blank"
+                    class="mt-6 inline-flex items-center gap-2 text-sm text-violet-600 dark:text-violet-400 hover:underline">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                    Lihat di PDDIKTI
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/search.js"></script>
+
+</body>
+
+</html>
