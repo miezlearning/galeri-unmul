@@ -1,5 +1,4 @@
 export default async function handler(req, res) {
-  // Handle CORS preflight
   if (req.method === 'OPTIONS') {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS');
@@ -14,11 +13,9 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Missing url param' });
   }
 
-  // Safely decode url (handle single/double-encoded cases)
   let target = url;
   try {
     const once = decodeURIComponent(target);
-    // If double-encoded, decoding again may change it; try twice safely
     const twice = decodeURIComponent(once);
     target = twice;
   } catch (_) {
