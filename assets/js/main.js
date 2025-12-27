@@ -208,15 +208,50 @@ function pad(num, length) {
     return num.toString().padStart(length, '0');
 }
 
+// Helper untuk mendapatkan inisial nama
+function getInitials(name) {
+    if (!name) return '?';
+    const words = name.trim().split(' ');
+    if (words.length === 1) return words[0].charAt(0).toUpperCase();
+    return (words[0].charAt(0) + words[words.length - 1].charAt(0)).toUpperCase();
+}
+
+// Helper untuk gradient random
+function getRandomGradient() {
+    const gradients = [
+        'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+        'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+        'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+        'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+        'linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)',
+        'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)',
+        'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+    ];
+    return gradients[Math.floor(Math.random() * gradients.length)];
+}
+
 function createPhotoCard(nim) {
     const imageUrl = baseUrl + nim;
+    const gradient = getRandomGradient();
+
     const card = document.createElement('div');
-    // Menambahkan class-class yang mendukung dark mode secara konsisten
-    card.className = 'bg-white dark:bg-slate-800 rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:-translate-y-2 cursor-pointer border border-slate-200 dark:border-slate-700 image-card-hover';
+    card.className = 'photo-card bg-white dark:bg-slate-800 rounded-2xl shadow-lg overflow-hidden cursor-pointer border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-all duration-300 hover:-translate-y-1';
     card.onclick = () => openModal(imageUrl, nim);
-    
-    const imageContainer = document.createElement('div');
-    imageContainer.className = 'w-full aspect-square bg-slate-100 dark:bg-slate-700 flex items-center justify-center skeleton';
+
+    // Header dengan gradient
+    const header = document.createElement('div');
+    header.className = 'h-12 sm:h-14';
+    header.style.background = gradient;
+
+    // Container untuk foto (dengan posisi relatif untuk avatar)
+    const photoWrapper = document.createElement('div');
+    photoWrapper.className = 'relative px-3 sm:px-4 -mt-8 sm:-mt-10';
+
+    // Avatar container
+    const avatarContainer = document.createElement('div');
+    avatarContainer.className = 'mx-auto w-16 h-16 sm:w-20 sm:h-20 rounded-xl overflow-hidden border-4 border-white dark:border-slate-800 shadow-lg bg-slate-100 dark:bg-slate-700 flex items-center justify-center';
+    avatarContainer.style.background = gradient;
 
     const img = document.createElement('img');
     img.src = imageUrl;
@@ -224,58 +259,76 @@ function createPhotoCard(nim) {
     img.className = 'w-full h-full object-cover opacity-0 transition-opacity duration-300';
     img.loading = 'lazy';
 
+    // Inisial sebagai fallback
+    const initialsEl = document.createElement('span');
+    initialsEl.className = 'text-white font-bold text-lg sm:text-xl hidden';
+    initialsEl.textContent = '?';
+
     img.onload = () => {
-        imageContainer.classList.remove('skeleton');
         img.classList.remove('opacity-0');
         img.classList.add('opacity-100');
+        initialsEl.classList.add('hidden');
     };
 
-    const placeholderUrl = `https://placehold.co/400x400/e2e8f0/64748b?text=Not+Found`;
-    img.onerror = () => { 
-        img.src = placeholderUrl; 
-        img.classList.add('opacity-50'); // Membuat placeholder sedikit redup
-        imageContainer.classList.remove('skeleton');
-        img.classList.remove('opacity-0');
-        img.classList.add('opacity-100');
+    img.onerror = () => {
+        img.classList.add('hidden');
+        initialsEl.classList.remove('hidden');
+        avatarContainer.style.background = gradient;
     };
 
+    avatarContainer.appendChild(img);
+    avatarContainer.appendChild(initialsEl);
+    photoWrapper.appendChild(avatarContainer);
+
+    // Info section
     const info = document.createElement('div');
-    info.className = 'p-3 text-center bg-slate-50 dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700';
-    // Elemen teks terpisah agar mudah diperbarui setelah fetch API
+    info.className = 'p-3 sm:p-4 pt-2 sm:pt-3 text-center';
+
+    // Nama
+    const namaEl = document.createElement('h3');
+    namaEl.className = 'font-semibold text-slate-800 dark:text-white text-sm sm:text-base mb-0.5 line-clamp-1 min-h-[1.25rem] sm:min-h-[1.5rem]';
+    namaEl.innerHTML = '<span class="inline-block bg-slate-200 dark:bg-slate-700 rounded h-4 w-24 animate-pulse"></span>';
+
+    // NIM
     const nimEl = document.createElement('p');
-    nimEl.className = 'font-mono text-sm text-slate-700 dark:text-slate-300 tracking-wider';
+    nimEl.className = 'font-mono text-xs text-slate-500 dark:text-slate-400 mb-2';
     nimEl.textContent = nim;
 
-    const namaEl = document.createElement('p');
-    namaEl.className = 'text-sm text-slate-600 dark:text-slate-300 mt-1 skeleton-text px-8 py-1 inline-block';
-    namaEl.textContent = 'Nama: memuat…';
+    // Prodi dengan icon
+    const prodiWrapper = document.createElement('div');
+    prodiWrapper.className = 'flex items-center justify-center gap-1.5 text-xs text-slate-500 dark:text-slate-400';
 
-    const prodiEl = document.createElement('p');
-    prodiEl.className = 'text-xs text-slate-500 dark:text-slate-400 skeleton-text px-6 py-1 inline-block mt-1';
-    prodiEl.textContent = 'Prodi: memuat…';
+    const prodiIcon = document.createElement('span');
+    prodiIcon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-indigo-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>';
 
-    info.appendChild(nimEl);
+    const prodiEl = document.createElement('span');
+    prodiEl.className = 'truncate min-h-[1rem]';
+    prodiEl.innerHTML = '<span class="inline-block bg-slate-200 dark:bg-slate-700 rounded h-3 w-16 animate-pulse"></span>';
+
+    prodiWrapper.appendChild(prodiIcon);
+    prodiWrapper.appendChild(prodiEl);
+
     info.appendChild(namaEl);
-    info.appendChild(prodiEl);
-    
-    imageContainer.appendChild(img);
-    card.appendChild(imageContainer);
+    info.appendChild(nimEl);
+    info.appendChild(prodiWrapper);
+
+    card.appendChild(header);
+    card.appendChild(photoWrapper);
     card.appendChild(info);
-    
+
     albumGrid.appendChild(card);
 
     // Ambil data nama & prodi dari API berdasarkan NIM
     fetchMahasiswaByNim(nim).then((mhs) => {
         if (mhs) {
-            namaEl.textContent = `Nama: ${mhs.nama || 'Tidak tersedia'}`;
-            prodiEl.textContent = `Prodi: ${mhs.nama_prodi || 'Tidak tersedia'}`;
-            namaEl.classList.remove('skeleton-text');
-            prodiEl.classList.remove('skeleton-text');
+            namaEl.textContent = mhs.nama || 'Tidak tersedia';
+            prodiEl.textContent = mhs.nama_prodi || 'Tidak tersedia';
+            // Update inisial
+            initialsEl.textContent = getInitials(mhs.nama);
         } else {
-            namaEl.textContent = 'Nama: Tidak tersedia';
-            prodiEl.textContent = 'Prodi: Tidak tersedia';
-            namaEl.classList.remove('skeleton-text');
-            prodiEl.classList.remove('skeleton-text');
+            namaEl.textContent = 'Tidak tersedia';
+            prodiEl.textContent = '-';
+            initialsEl.textContent = '?';
         }
     });
 }
@@ -316,28 +369,63 @@ if (generateBtnHero) {
 
 // --- Modal Logic ---
 function openModal(imageUrl, nim) {
-    modalImg.src = 'https://placehold.co/400x400/e2e8f0/4a5568?text=Memuat...'; // Placeholder
-    modalImg.src = imageUrl; // Actual image
-    modalNim.textContent = nim;
-    // Perkaya informasi pada modal jika data tersedia atau coba ambil
+    // Set image
+    modalImg.src = imageUrl;
+
+    // Get modal elements
+    const modalNama = document.getElementById('modal-nama');
+    const modalNimText = document.getElementById('modal-nim-text');
+    const modalProdi = document.getElementById('modal-prodi');
+    const modalPt = document.getElementById('modal-pt');
+    const modalPddiktiLink = document.getElementById('modal-pddikti-link');
+    const modalAvatar = document.getElementById('modal-avatar');
+
+    // Reset to loading state
+    if (modalNama) modalNama.textContent = 'Memuat...';
+    if (modalNimText) modalNimText.textContent = nim;
+    if (modalProdi) modalProdi.textContent = 'Memuat...';
+    if (modalPt) modalPt.textContent = 'Universitas Mulawarman';
+    if (modalPddiktiLink) modalPddiktiLink.classList.add('hidden');
+    if (modalAvatar) modalAvatar.textContent = '?';
+
+    // Handle image error
+    modalImg.onerror = () => {
+        modalImg.src = 'https://placehold.co/400x400/e2e8f0/64748b?text=Foto+Tidak+Tersedia';
+    };
+
+    // Populate data from cache or fetch
     const cached = mahasiswaCache.get(nim);
-    if (cached) {
-        if (cached) {
-            modalNim.textContent = `${nim} — ${cached.nama || ''} — ${cached.nama_prodi || ''}`.trim();
-        }
-    } else {
-        fetchMahasiswaByNim(nim).then((mhs) => {
-            if (mhs) {
-                modalNim.textContent = `${nim} — ${mhs.nama || ''} — ${mhs.nama_prodi || ''}`.trim();
+    const updateModalData = (mhs) => {
+        if (mhs) {
+            if (modalNama) modalNama.textContent = mhs.nama || 'Nama tidak tersedia';
+            if (modalProdi) modalProdi.textContent = mhs.nama_prodi || '-';
+            if (modalPt) modalPt.textContent = mhs.nama_pt || 'Universitas Mulawarman';
+            if (modalAvatar) modalAvatar.textContent = getInitials(mhs.nama);
+            if (modalPddiktiLink && mhs.id) {
+                modalPddiktiLink.href = `https://pddikti.kemdikbud.go.id/data_mahasiswa/${mhs.id}`;
+                modalPddiktiLink.classList.remove('hidden');
             }
-        });
+        } else {
+            if (modalNama) modalNama.textContent = 'Data tidak tersedia';
+            if (modalProdi) modalProdi.textContent = '-';
+            if (modalAvatar) modalAvatar.textContent = '?';
+        }
+    };
+
+    if (cached) {
+        updateModalData(cached);
+    } else {
+        fetchMahasiswaByNim(nim).then(updateModalData);
     }
+
     modal.classList.remove('hidden');
-    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    modal.classList.add('flex');
+    document.body.style.overflow = 'hidden';
 }
 
 function closeModal() {
     modal.classList.add('hidden');
+    modal.classList.remove('flex');
     document.body.style.overflow = '';
 }
 
@@ -353,7 +441,7 @@ window.onload = () => {
     // Initialize theme
     const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
     applyTheme(savedTheme);
-    
+
     // Initial image generation
     loadImages(parseInt(inputNimCount.value, 10), true);
 };
